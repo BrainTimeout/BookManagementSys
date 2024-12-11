@@ -11,22 +11,46 @@ public class Result {
     private Object data;
     private String msg;
 
-    public static Result success(){
+    // 成功的静态方法
+    public static Result success() {
         Result result = new Result();
         result.setCode(SUCCESS_CODE);
         return result;
     }
 
-    public static Result success(Object data){
+    public static Result success(Object data) {
         Result result = new Result();
         result.setCode(SUCCESS_CODE);
         result.setData(data);
         return result;
     }
 
-    public static Result error(){
+    public static Result success(String msg) {
+        Result result = new Result();
+        result.setCode(SUCCESS_CODE);
+        result.setMsg(msg);
+        return result;
+    }
+
+    // 错误的静态方法
+    public static Result error() {
         Result result = new Result();
         result.setCode(ERROR_CODE);
         return result;
     }
+
+    public static Result error(String msg) {
+        Result result = new Result();
+        result.setCode(ERROR_CODE);
+        result.setMsg(msg);
+        return result;
+    }
+
+    public static Result error(String code, String msg) {
+        Result result = new Result();
+        result.setCode(code);
+        result.setMsg(msg);
+        return result;
+    }
 }
+

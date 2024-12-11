@@ -25,7 +25,17 @@ const routes = [
       {
         path: '/userManage',
         name: 'userManage',
-        component: () => import('../views/UserManage.vue'),
+        component: () => import('../views/user/UserManage.vue'),
+      },
+      {
+        path: '/userJoin',
+        name: 'userJoin',
+        component: () => import('../views/user/UserJoin.vue'),
+      },
+      {
+        path: '/accountManage',
+        name: 'accountManage',
+        component: () => import('../views/AccountManage.vue'),
       },
     ]
   },

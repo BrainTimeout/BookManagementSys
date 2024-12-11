@@ -5,46 +5,60 @@
         <img :src="logo" alt="Logo" class="sidebar-logo" />
         <span class="sidebar-title">图书馆管理系统</span>
       </div>
-      <el-menu :default-active="$route.path" :default-openeds="['/']" router class="el-menu-demo">
+      <el-menu :default-active="$route.path" :default-openeds="['1','2']" router class="el-menu-demo">
         <el-menu-item index="/">
-          <i class="el-icon-elems"></i>
+          <i class="mdi mdi-home"></i>
           <span>首页</span>
         </el-menu-item>
         <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-question"></i>
+          <template #title>
+            <i class="mdi mdi-book-open-page-variant"></i>
             <span>书籍管理</span>
           </template>
-          <el-menu-item index="/">用户管理</el-menu-item>
+          <el-menu-item index="/bookCategoryManage">
+            <i class="mdi mdi-bookmark-outline"></i>
+            <span>书籍分类管理</span>
+          </el-menu-item>
         </el-submenu>
         <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-question"></i>
+          <template #title>
+            <i class="mdi mdi-account-settings"></i>
             <span>用户管理</span>
           </template>
-          <el-menu-item index="/userManage">用户管理</el-menu-item>
+          <el-menu-item index="/userManage">
+            <i class="mdi mdi-account-edit"></i>
+            <span>用户信息管理</span>
+          </el-menu-item>
+          <el-menu-item index="/accountManage">
+            <i class="mdi mdi-account-plus"></i>
+            <span>用户账号管理</span>
+          </el-menu-item>
+          <el-menu-item index="/userJoin">
+            <i class="mdi mdi-account-plus"></i>
+            <span>用户注册</span>
+          </el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
     <div class="right-content" :class="{ shifted: sidebarVisible }">
       <header class="header">
         <button @click="toggleSidebar" class="sidebar-toggle">
-          <span :class="sidebarVisible ? 'mdi mdi-menu-open' : 'mdi mdi-menu'" />
+          <span :class="sidebarVisible ? 'mdi mdi-menu-open' : 'mdi mdi-menu'"></span>
           <span class="button-text">菜单</span>
         </button>
         <div class="user-info" @click="toggleDropdown">
           <img :src="user.avatar" alt="Avatar" class="avatar" />
           <span class="username">{{ user.username }}</span>
-          <span :class="dropdownVisible ? 'mdi mdi-menu-down-outline' : 'mdi mdi-menu-right-outline'"></span>
+          <span :class="dropdownVisible ? 'mdi mdi-menu-down' : 'mdi mdi-menu-up'"></span>
         </div>
       </header>
       <main class="main">
         <router-view/>
         <div v-if="dropdownVisible" class="dropdown">
           <ul>
-            <li>个人信息</li>
-            <li>修改密码</li>
-            <li>退出登录</li>
+            <li><i class="mdi mdi-account-circle"></i> 个人信息</li>
+            <li><i class="mdi mdi-lock"></i> 修改密码</li>
+            <li><i class="mdi mdi-logout"></i> 退出登录</li>
           </ul>
         </div>
       </main>
@@ -106,13 +120,16 @@ export default {
 .sidebar-title { font-size: 18px; font-weight: bold; color: #333; }
 
 .right-content {
-  flex-grow: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  transition: margin-left 0.3s;
+  transition: margin-left 0.3s ,width 0.3s;
 }
 
-.right-content.shifted { margin-left: 15%; }
+.right-content.shifted {
+  margin-left: 15%;
+  width: 85%;
+}
 
 .header {
   background-color: #e0e0e0;

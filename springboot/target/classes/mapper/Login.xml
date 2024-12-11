@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.LoginMapper">
+    <select id="list" parameterType="long" resultType="com.example.springboot.entity.Login">
+        select * from login
+    </select>
+
+    <select id="listByCondition" parameterType="long" resultType="com.example.springboot.entity.Login">
+        SELECT * FROM login
+        <where>
+            <if test="account != null and account != ''">
+                AND account = #{account}
+            </if>
+            <if test="password != null and password != ''">
+                AND password = #{password}
+            </if>
+            <if test="usertype != null and usertype != ''">
+                AND usertype = #{usertype}
+            </if>
+            <if test="banuntil != null">
+                AND banuntil = #{banuntil}
+            </if>
+        </where>
+    </select>
+
+    <update id="update">
+        UPDATE login
+        SET
+            account = #{account},
+            password = #{password},
+            usertype = #{usertype},
+            banuntil = #{banuntil}
+        WHERE account = #{account};
+    </update>
+
+    <insert id="insert">
+        INSERT INTO login (account, password, usertype, banuntil)
+        VALUES (#{account}, #{password}, #{usertype}, #{banuntil});
+    </insert>
+
+</mapper>
+

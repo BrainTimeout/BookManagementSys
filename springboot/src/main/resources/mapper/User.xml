@@ -8,21 +8,52 @@
     </select>
 
     <select id="listByCondition" parameterType="long" resultType="com.example.springboot.entity.User">
-        select * from user
-            <where>
-                <if test="name !=null and name !=''">
-                    name like concat('%',#{ name } ,'%')
-                </if>
-                <if test="phone !=null and phone !=''">
-                    and phone like concat('%',#{ phone } ,'%')
-                </if>
-                <if test="address !=null and address !=''">
-                    and address like concat('%',#{ address } ,'%')
-                </if>
-                <if test="age !=null and age !=''">
-                    and age like concat('%',#{ age } ,'%')
-                </if>
-            </where>
+        SELECT * FROM userinfo
+        <where>
+            <if test="account != null and account != ''">
+                AND account LIKE CONCAT('%', #{account}, '%')
+            </if>
+            <if test="username != null and username != ''">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone LIKE CONCAT('%', #{phone}, '%')
+            </if>
+            <if test="address != null and address != ''">
+                AND address LIKE CONCAT('%', #{address}, '%')
+            </if>
+            <if test="age != null and age != ''">
+                AND age = #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                AND sex = #{sex}
+            </if>
+            <if test="detail != null and detail != ''">
+                AND (email LIKE CONCAT('%', #{detail}, '%')
+                OR createtime LIKE CONCAT('%', #{detail}, '%')
+                OR updatetime LIKE CONCAT('%', #{detail}, '%')
+                OR introduce LIKE CONCAT('%', #{detail}, '%'))
+            </if>
+        </where>
     </select>
+
+    <update id="update">
+        UPDATE userinfo
+        SET
+            account = #{account},
+            username = #{username},
+            age = #{age},
+            sex = #{sex},
+            address = #{address},
+            email = #{email},
+            phone = #{phone},
+            introduce = #{introduce}
+        WHERE userid = #{userid};
+    </update>
+
+    <update id="insert">
+        INSERT INTO userinfo (account, username, age, sex, address, email, phone, introduce)
+        VALUES (#{account}, #{username}, #{age}, #{sex}, #{address}, #{email}, #{phone}, #{introduce});
+    </update>
 
 </mapper>
