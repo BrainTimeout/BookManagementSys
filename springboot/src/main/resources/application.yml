@@ -22,3 +22,9 @@ mybatis:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
+# 配置文件上传路径
+file:
+  upload-dir: C:/Users/lenovo/Desktop/BookManagementSys/Data/userfile
+
+
+

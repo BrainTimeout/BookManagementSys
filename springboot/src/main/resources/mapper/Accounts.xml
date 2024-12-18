@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.AccountsMapper">
+    <select id="list" parameterType="long" resultType="com.example.springboot.entity.Accounts">
+        select * from Accounts
+    </select>
+
+    <select id="listByCondition" parameterType="long" resultType="com.example.springboot.entity.Accounts">
+        SELECT * FROM Accounts
+        <where>
+            <if test="account != null and account != ''">
+                AND account = #{account}
+            </if>
+            <if test="password != null and password != ''">
+                AND password = #{password}
+            </if>
+            <if test="usertype != null and usertype != ''">
+                AND usertype = #{usertype}
+            </if>
+            <if test="banuntil != null">
+                AND banuntil = #{banuntil}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByAccountAndPassword" resultType="com.example.springboot.entity.Accounts">
+        SELECT * FROM Accounts
+        WHERE account = #{account} and password = #{password}
+    </select>
+
+    <update id="update">
+        UPDATE Accounts
+        SET
+            account = #{account},
+            password = #{password},
+            usertype = #{usertype},
+            banuntil = #{banuntil}
+        WHERE account = #{account};
+    </update>
+
+    <insert id="insert">
+        INSERT INTO Accounts (account, password, usertype, banuntil)
+        VALUES (#{account}, #{password}, #{usertype}, #{banuntil});
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM Accounts
+        WHERE account = #{account};
+    </delete>
+
+</mapper>
+
