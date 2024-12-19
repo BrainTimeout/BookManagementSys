@@ -37,6 +37,11 @@
         </where>
     </select>
 
+    <select id = "getByAccount" resultType="com.example.springboot.entity.UserProfile">
+        SELECT * FROM UserProfile
+        WHERE account = #{account}
+    </select>
+
     <update id="update">
         UPDATE UserProfile
         SET
@@ -49,5 +54,4 @@
             introduce = #{introduce}
         WHERE account = #{account};
     </update>
-
 </mapper>

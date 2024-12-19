@@ -8,7 +8,7 @@
   ],
   "properties": [
     {
-      "name": "file.upload-dir",
+      "name": "file.file-dir",
       "type": "java.lang.String",
       "sourceType": "com.example.springboot.utils.FileStorageProperties"
     }

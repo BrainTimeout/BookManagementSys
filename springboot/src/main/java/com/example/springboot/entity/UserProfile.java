@@ -15,7 +15,6 @@ public class UserProfile {
     private String address;    // 对应 address 字段
     private String email;      // 对应 email 字段
     private String introduce;  // 对应 introduce 字段
-    private String avatar; //对应头像路径
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createtime;   // 对应 createtime 字段
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")

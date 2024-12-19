@@ -47,7 +47,7 @@
           <span class="button-text">菜单</span>
         </button>
         <div class="user-info" @click="toggleDropdown">
-          <img :src="userlogo" alt="Avatar" class="avatar" />
+          <img :src="avatarUrl" alt="Avatar" class="avatar" />
           <span class="username">{{ userProfile.username }}</span>
           <span :class="dropdownVisible ? 'mdi mdi-menu-down' : 'mdi mdi-menu-up'"></span>
         </div>
@@ -76,8 +76,7 @@
             :on-success="handleAvatarSuccess"
             :on-error="handleAvatarError"
         >
-          <img v-if="userProfile.avatar" :src="userProfile.avatar" class="avatar" />
-          <i v-else class="mdi mdi-account-circle"></i>
+          <img :src="avatarUrl" class="avatar" />
           <span class="upload-text">点击上传头像</span>
         </el-upload>
       </div>
@@ -91,8 +90,8 @@
         </el-form-item>
         <el-form-item label="性别">
           <el-select v-model="userProfile.sex" :style="{ width: '20%' }">
-            <el-option label="男" value="男" />
-            <el-option label="女" value="女" />
+            <el-option label="男" value="male" />
+            <el-option label="女" value="female" />
           </el-select>
         </el-form-item>
         <el-form-item label="地址">
@@ -130,27 +129,42 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+import request from "@/utils/request";
+
 export default {
   data() {
     return {
       userProfile: {
-        username: '张三',  // 示例数据
-        age: '20',
-        sex: '男',
-        address: '北京市',
-        phone: '1234567890',
-        email: 'zhangsan@example.com',
-        introduce: '这是张三的个人简介',
-        avatar: "@/assets/images/captcha.png",
+        account:"",
+        username: '',
+        age: '',
+        sex: '',
+        address: '',
+        phone: '',
+        email: '',
+        introduce: '',
       },
-      userLogo: "",
+      avatarUrl: `${request.defaults.baseURL}/File/Download/Avatar/default.jpg`,
       logo: require("@/assets/images/captcha.png"),
-      avatarUploadUrl: 'http://localhost:8089/File/Avatar', // 完整的上传路径
+      avatarUploadUrl: ``, // 完整的上传路径
+      newPassword: "", // 新密码
+      confirmPassword: "", // 确认新密码
       dropdownVisible: false,
       sidebarVisible: true,
       userInfoDialogVisible: false,
       changePasswordDialogVisible: false,
     };
+  },
+  mounted() {
+    // 从cookie中读取LoginDTO并解析
+    const loginDTO = Cookies.get('loginDTO');
+    if (loginDTO) {
+      const loginData = JSON.parse(loginDTO); // 假设cookie中存储的是JSON字符串
+      this.userProfile = loginData.userProfile || {};
+      this.avatarUploadUrl = `${request.defaults.baseURL}/File/Upload/Avatar/${this.userProfile.account}.jpg`;
+      this.avatarUrl =  `${request.defaults.baseURL}/File/Download/Avatar/${this.userProfile.account}.jpg`;
+    }
   },
   methods: {
     toggleSidebar() { this.sidebarVisible = !this.sidebarVisible; },
@@ -169,43 +183,64 @@ export default {
 
     // 处理头像上传后的变更
     handleAvatarChange(file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.userProfile.avatar = reader.result;  // 设置上传后的头像路径
-      };
-      reader.readAsDataURL(file.raw);
+
     },
     // 上传成功后的回调
-    handleAvatarSuccess(response, file, fileList) {
-      if (response && response.data && response.data.avatarUrl) {
-        this.userProfile.avatar = response.data.avatarUrl;  // 假设服务器返回头像的URL
-        this.$message.success('头像上传成功');
-      }
+    handleAvatarSuccess(response) {
+      this.avatarUrl = `${request.defaults.baseURL}/File/Download/Avatar/${this.userProfile.account}.jpg?time=${new Date().getTime()}`;
     },
 
     // 上传失败的回调
     handleAvatarError(error, file, fileList) {
       this.$message.error('头像上传失败');
     },
-    saveUserInfo() {
-      // 保存用户信息的逻辑
-      this.$message.success('个人信息已保存');
+    async saveUserInfo() {
+      try {
+        const res = await request.put("/UserProfile/Update", this.userProfile);
+        if (res.code === "200") {
+          this.$message.success("用户信息已更新！");
+        } else {
+          this.$message.error(res.msg);
+        }
+      } catch (error) {
+        this.$message.error("用户信息更新失败");
+      }
       this.userInfoDialogVisible = false;
     },
     showChangePasswordDialog() {
       this.changePasswordDialogVisible = true;
     },
-    changePassword() {
+    async changePassword() {
       if (this.newPassword === this.confirmPassword) {
-        // 在此处理密码更改的逻辑
-        this.$message.success('密码修改成功');
-        this.changePasswordDialogVisible = false;
+        // 检查密码强度，简单示例
+        if (this.newPassword.length < 6) {
+          this.$message.error('密码长度必须大于等于6位');
+          return;
+        }
+
+        try {
+          // 假设后端的密码修改接口为 PUT 请求
+          const res = await request.put("/Accounts/UpdatePassword", {
+            account: this.userProfile.account,
+            password: this.newPassword
+          });
+
+          if (res.code === "200") {
+            this.$message.success('密码修改成功');
+            this.changePasswordDialogVisible = false;
+          } else {
+            this.$message.error(res.msg);
+          }
+        } catch (error) {
+          this.$message.error('密码修改失败');
+        }
       } else {
         this.$message.error('两次输入的密码不一致');
       }
     },
     logout() {
       this.$router.push('/login'); // 退出登录，跳转到登录页
+      Cookies.remove('loginDTO');
     }
   }
 };
@@ -254,8 +289,7 @@ export default {
   z-index: 10;
 }
 
-.avatar-uploader img,
-.avatar-uploader .mdi{
+.avatar-uploader img{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -277,7 +311,7 @@ export default {
   color: #999;
   font-size: 14px;  /* 稍微增大文字的字体 */
   top: 180px;
-  right: 60px;
+  right: 50px;
   text-align: center;
 }
 

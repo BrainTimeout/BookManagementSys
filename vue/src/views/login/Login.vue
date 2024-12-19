@@ -46,6 +46,7 @@
 
 <script>
 import request from "@/utils/request";
+import Cookies from 'js-cookie';
 
 export default {
   name: "Login",
@@ -66,6 +67,7 @@ export default {
         const res = await request.post('/Auth/Login',this.msg);
         if(res.code === "200") {
           this.$notify.success("登录成功");
+          Cookies.set('loginDTO',JSON.stringify(res.data));
           if(res.data.usertype === "admin"){
             await this.$router.push({path: '/admin'});
           }else{

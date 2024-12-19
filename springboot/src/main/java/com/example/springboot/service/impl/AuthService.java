@@ -4,6 +4,7 @@ import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.JoinRequest;
 import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.entity.Accounts;
+import com.example.springboot.entity.UserProfile;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.AccountsMapper;
 import com.example.springboot.mapper.UserProfileMapper;
@@ -46,6 +47,10 @@ public class AuthService implements IAuthService {
         LoginDTO loginDTO = new LoginDTO();
 
         BeanUtils.copyProperties(accounts,loginDTO);
+
+        UserProfile userProfile = userProfileMapper.getByAccount(accounts.getAccount());
+
+        loginDTO.setUserProfile(userProfile);
 
         return loginDTO;
     }

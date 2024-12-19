@@ -13,6 +13,7 @@ public interface UserProfileMapper {
 
     List<UserProfile> listByCondition(UserProfilePageRequest userProfilePageRequest);
 
-    void update(UserProfile userProfile);
+    UserProfile getByAccount(String Account);
 
+    void update(UserProfile userProfile);
 }

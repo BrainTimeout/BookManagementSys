@@ -40,6 +40,13 @@
         WHERE account = #{account};
     </update>
 
+    <update id="updatePassword">
+        UPDATE Accounts
+        SET
+            password = #{password}
+        WHERE account = #{account};
+    </update>
+
     <insert id="insert">
         INSERT INTO Accounts (account, password, usertype, banuntil)
         VALUES (#{account}, #{password}, #{usertype}, #{banuntil});
