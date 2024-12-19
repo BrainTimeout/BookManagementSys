@@ -1,8 +1,11 @@
 package com.example.springboot.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.JoinRequest;
 import com.example.springboot.controller.request.LoginRequest;
+import com.example.springboot.controller.request.UpdatePasswordRequest;
 import com.example.springboot.entity.Accounts;
 import com.example.springboot.entity.UserProfile;
 import com.example.springboot.exception.ServiceException;
@@ -27,8 +30,19 @@ public class AuthService implements IAuthService {
     @Autowired
     UserProfileMapper userProfileMapper;
 
+    //默认密码
+    private static final String DEFAULT_PASS = "123";
+    private static final String PASS_SALT = "npu";
+
+    private String securePass(String password){
+        return SecureUtil.md5(password+PASS_SALT);
+    }
+
+
     @Override
     public LoginDTO login(LoginRequest loginRequest){
+        // 加码
+        loginRequest.setPassword(securePass(loginRequest.getPassword()));
         Accounts accounts = accountsMapper.getByAccountAndPassword(loginRequest);
         if(accounts == null){
             throw new ServiceException("用户名或密码错误");
@@ -58,9 +72,20 @@ public class AuthService implements IAuthService {
     @Override
     public void join(JoinRequest joinRequest){
         Accounts accounts = joinRequest.getAccounts();
+        if(StrUtil.isBlank(accounts.getPassword())){
+            accounts.setPassword(DEFAULT_PASS);
+        }
+        // 加密
+        accounts.setPassword(securePass(accounts.getPassword()));
         Date nowTime = new Date();
         accounts.setBanuntil(nowTime);
         accountsMapper.insert(accounts);
         userProfileMapper.update(joinRequest.getUserProfile());
+    }
+
+    @Override
+    public void updatePassword(UpdatePasswordRequest updatePasswordRequest) {
+        updatePasswordRequest.setPassword(securePass(updatePasswordRequest.getPassword()));
+        accountsMapper.updatePassword(updatePasswordRequest);
     }
 }

@@ -34,7 +34,6 @@
         UPDATE Accounts
         SET
             account = #{account},
-            password = #{password},
             usertype = #{usertype},
             banuntil = #{banuntil}
         WHERE account = #{account};

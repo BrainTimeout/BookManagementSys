@@ -2,8 +2,6 @@ package com.example.springboot.controller;
 
 import com.example.springboot.comon.Result;
 import com.example.springboot.controller.request.AccountsRequest;
-import com.example.springboot.controller.request.LoginRequest;
-import com.example.springboot.controller.request.UpdatePasswordRequest;
 import com.example.springboot.entity.Accounts;
 import com.example.springboot.service.IAccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +30,6 @@ public class AccountsController {
     @PutMapping("/Update")
     public Result update(@RequestBody Accounts accounts){
         accountsService.update(accounts);
-        return Result.success();
-    }
-
-    @PutMapping("/UpdatePassword")
-    public Result updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest){
-        accountsService.updatePassword(updatePasswordRequest);
         return Result.success();
     }
 

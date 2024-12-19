@@ -22,7 +22,6 @@
     <!-- 表格 -->
     <el-table :data="tableData" stripe @row-click="handleRowClick">
       <el-table-column prop="account" label="账户" />
-      <el-table-column prop="password" label="密码" />
       <el-table-column label="用户类型">
         <template slot-scope="scope">
           <span>{{ getUserType(scope.row.usertype) }}</span> <!-- 修改为 usertype -->
@@ -31,12 +30,21 @@
       <el-table-column label="封禁状态">
         <template slot-scope="scope">
           <span v-if="new Date(scope.row.banuntil) > new Date()">
+            <el-icon name="lock" style="color: red; margin-right: 5px;"></el-icon>
             已封禁，{{ formatDate(scope.row.banuntil) }}解禁
           </span>
-          <span v-else>未封禁</span>
+          <span v-else>
+            <el-icon name="unlock" style="color: green; margin-right: 5px;"></el-icon>
+            未封禁
+          </span>
         </template>
       </el-table-column>
-      <el-table-column label="" width="60">
+      <el-table-column label="修改密码">
+        <template slot-scope="scope">
+          <el-button type="primary" icon="el-icon-edit" circle @click.stop="haddleEditPassword(scope.row)" />
+        </template>
+      </el-table-column>
+      <el-table-column label="删除用户" width="100px">
         <template slot-scope="scope">
           <el-button type="danger" icon="el-icon-delete" circle @click.stop="handleDelete(scope.row)" />
         </template>
@@ -57,7 +65,6 @@
     <el-dialog title="编辑账号信息" :visible.sync="editDialogVisible" width="50%" class="edit-dialog">
       <el-form :model="editForm" label-width="100px">
         <el-form-item label="账号"><el-input v-model="editForm.account" /></el-form-item>
-        <el-form-item label="密码"><el-input v-model="editForm.password" type="password" /></el-form-item>
         <el-form-item label="用户类型">
           <el-select v-model="editForm.usertype"> <!-- 修改为 usertype -->
             <el-option label="管理员" value="admin" />
@@ -83,6 +90,22 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取消</el-button>
         <el-button type="primary" @click="saveEdit">保存</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 修改密码对话框 -->
+    <el-dialog title="修改密码" :visible.sync="editPasswordDialogVisible" width="40%" class="edit-password-dialog">
+      <el-form :model="editPasswordForm" ref="passwordForm">
+        <el-form-item label="密码" prop="password" :rules="[{ required: true, message: '请输入密码', trigger: 'blur' }]">
+          <el-input v-model="editPasswordForm.password" type="password" placeholder="请输入密码" />
+        </el-form-item>
+        <el-form-item label="确认密码" prop="confirmPassword" :rules="[ { required: true, message: '请确认密码', trigger: 'blur' }, { validator: validateConfirmPassword, trigger: 'blur' }]">
+          <el-input v-model="editPasswordForm.confirmPassword" type="password" placeholder="请再次输入密码" />
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editPasswordDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="updatePassword">保存</el-button>
       </span>
     </el-dialog>
 
@@ -118,10 +141,15 @@ export default {
       editDialogVisible: false,
       editForm: {
         account: "",
-        password: "",
         usertype: "",  // 修改为 usertype
         banuntil: "",
       },
+      editPasswordForm: {
+        account: "",
+        password: "",
+        confirmPassword:"",
+      },
+      editPasswordDialogVisible:false,
       deleteDialogVisible: false,
       deleteUserAccount: null,
     };
@@ -131,6 +159,14 @@ export default {
     "params.pageSize": "load",
   },
   methods: {
+    // 二次密码确认的验证方法
+    validateConfirmPassword(rule, value, callback) {
+      if (value !== this.editPasswordForm.password) {
+        callback(new Error("两次输入的密码不一致"));
+      } else {
+        callback();
+      }
+    },
     async load() {
       try {
         const res = await request.get("/Accounts/Page", {
@@ -144,19 +180,6 @@ export default {
         }
       } catch {
         this.$message.error("加载数据失败");
-      }
-    },
-    async update() {
-      try {
-        const res = await request.put("/Accounts/Update", this.editForm);
-        if (res.code === "200") {
-          this.$message.success("用户信息已更新！");
-          this.load();
-        } else {
-          this.$message.error(res.msg);
-        }
-      } catch {
-        this.$message.error("用户信息更新失败");
       }
     },
     handleSearch() {
@@ -178,13 +201,45 @@ export default {
       this.editForm = { ...row };
       this.editDialogVisible = true;
     },
+    haddleEditPassword(row){
+      this.editPasswordForm.account = row.account;
+      this.editPasswordDialogVisible = true;
+    },
     handleDelete(row) {
       this.deleteUserAccount = row.account;
       this.deleteDialogVisible = true;
     },
+    async update() {
+      try {
+        const res = await request.put("/Accounts/Update", this.editForm);
+        if (res.code === "200") {
+          this.$message.success("用户信息已更新！");
+          this.load();
+        } else {
+          this.$message.error(res.msg);
+        }
+      } catch {
+        this.$message.error("用户信息更新失败");
+      }
+    },
     saveEdit() {
       this.update();
       this.editDialogVisible = false;
+    },
+    async updatePassword(){
+      try {
+        const res = await request.put(`/Auth/UpdatePassword`,this.editPasswordForm);
+        if (res.code === "200") {
+          this.$message.success("密码修改成功！");
+          this.load();
+          this.editPasswordDialogVisible = false;
+        } else {
+          this.$message.error("密码修改失败");
+        }
+      } catch {
+        this.$message.error("密码修改失败");
+        this.editPasswordDialogVisible = false;
+      }
     },
     async deleteUser() {
       try {

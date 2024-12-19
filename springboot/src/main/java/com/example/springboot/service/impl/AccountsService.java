@@ -1,9 +1,6 @@
 package com.example.springboot.service.impl;
 
-import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.AccountsRequest;
-import com.example.springboot.controller.request.LoginRequest;
-import com.example.springboot.controller.request.UpdatePasswordRequest;
 import com.example.springboot.entity.Accounts;
 
 import com.example.springboot.mapper.AccountsMapper;
@@ -39,14 +36,6 @@ public class AccountsService implements IAccountsService {
     }
 
     @Override
-    public void updatePassword(UpdatePasswordRequest updatePasswordRequest) {
-        accountsMapper.updatePassword(updatePasswordRequest);
-    }
-
-    @Override
     public void delete(String account) { accountsMapper.delete(account); }
-
-    @Override
-    public void insert(Accounts accounts){ accountsMapper.insert(accounts);}
 
 }

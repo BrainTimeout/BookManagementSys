@@ -30,11 +30,15 @@
         WHERE account = #{account} and password = #{password}
     </select>
 
+    <select id="getPassword" resultType="String">
+        SELECT password FROM Accounts
+        WHERE account = #{account}
+    </select>
+
     <update id="update">
         UPDATE Accounts
         SET
             account = #{account},
-            password = #{password},
             usertype = #{usertype},
             banuntil = #{banuntil}
         WHERE account = #{account};

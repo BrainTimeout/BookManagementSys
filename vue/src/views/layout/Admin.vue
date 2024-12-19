@@ -220,14 +220,15 @@ export default {
 
         try {
           // 假设后端的密码修改接口为 PUT 请求
-          const res = await request.put("/Accounts/UpdatePassword", {
+          const res = await request.put("/Auth/UpdatePassword", {
             account: this.userProfile.account,
             password: this.newPassword
           });
 
           if (res.code === "200") {
             this.$message.success('密码修改成功');
-            this.changePasswordDialogVisible = false;
+            Cookies.remove('loginDTO');
+            await this.$router.push('/login'); // 退出登录，跳转到登录页
           } else {
             this.$message.error(res.msg);
           }
@@ -239,8 +240,8 @@ export default {
       }
     },
     logout() {
-      this.$router.push('/login'); // 退出登录，跳转到登录页
       Cookies.remove('loginDTO');
+      this.$router.push('/login'); // 退出登录，跳转到登录页
     }
   }
 };

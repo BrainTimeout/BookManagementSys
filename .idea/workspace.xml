@@ -5,41 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="228f936b-cb05-4868-8e56-739000303fdb" name="默认变更列表" comment="">
-      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/UpdatePasswordRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_auth0_java_jwt_3_10_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_15.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/comon/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/UpdateAccountsRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/utils/TokenUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/userfile/c14178c4-80a3-40c3-9d40-c5d8472eab01-屏幕截图 2024-10-17 194316.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/comon/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/comon/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/springboot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/springboot.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/AccountsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/AccountsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/FileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/dto/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/dto/LoginDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/UserProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/UserProfile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/AccountsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/AccountsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/UserProfileMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/UserProfileMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IAccountsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IAccountsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IFileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IAuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/AccountsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/AccountsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/FileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/utils/FileStorageProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/utils/FileStorageProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Accounts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Accounts.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/mapper/UserProfile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/mapper/UserProfile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/comon/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/comon/Result.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/AccountsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/AccountsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/FileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/FileController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/dto/LoginDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/dto/LoginDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/AccountsMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/AccountsMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/UserProfileMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/UserProfileMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/AuthController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IAccountsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IAccountsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IFileService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IFileService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IAuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IAuthService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/AccountsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/AccountsService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/AuthService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/FileService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/FileService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/utils/FileStorageProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/utils/FileStorageProperties.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/mapper/Accounts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/mapper/Accounts.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/mapper/UserProfile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/mapper/UserProfile.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Single File Component" />
         <option value="Interface" />
+        <option value="Vue Single File Component" />
         <option value="Class" />
       </list>
     </option>
@@ -177,7 +164,7 @@
       <workItem from="1733897206712" duration="38565000" />
       <workItem from="1734452376836" duration="3232000" />
       <workItem from="1734501992148" duration="42101000" />
-      <workItem from="1734578318633" duration="23062000" />
+      <workItem from="1734578318633" duration="35254000" />
     </task>
     <servers />
   </component>
