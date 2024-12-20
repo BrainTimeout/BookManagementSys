@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.CategoryMapper">
+    <select id="list" resultType="com.example.springboot.entity.Category">
+        select * from Category
+    </select>
+
+    <select id="selectByPid" resultType="com.example.springboot.entity.Category">
+        SELECT * FROM Category
+        WHERE pid = #{id}
+    </select>
+
+    <resultMap id="categoryMap" type="com.example.springboot.entity.Category">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="remark" property="remark"></result>
+        <result column="pid" property="pid"></result>
+        <result column="createtime" property="createtime"></result>
+        <result column="updatetime" property="updatetime"></result>
+        <collection property="children" ofType="com.example.springboot.entity.Category" column="id" select="selectByPid"></collection>
+    </resultMap>
+
+    <select id="listByCondition" resultMap="categoryMap">
+        SELECT c1.* FROM Category c1
+        LEFT JOIN Category c2
+        ON c1.id = c2.pid
+        <where>
+            isnull(c1.pid)
+            <if test="id != null and id != ''">
+                AND (c1.id LIKE CONCAT(#{id},'%') OR c2.id LIKE CONCAT(#{id},'%'))
+            </if>
+            <if test="name != null and name != ''">
+                AND (c1.name LIKE CONCAT('%', #{name}, '%') OR c2.name LIKE CONCAT('%', #{name}, '%'))
+            </if>
+            <if test="remark != null and remark != ''">
+                AND (c1.remark LIKE CONCAT('%', #{remark}, '%') OR c2.remark LIKE CONCAT('%', #{remark}, '%'))
+            </if>
+        </where>
+        GROUP BY c1.id
+        <if test="sortOrder == 'ascending'">
+            ORDER BY id asc
+        </if>
+        <if test="sortOrder == 'descending'">
+            ORDER BY id desc
+        </if>
+    </select>
+
+    <select id = "getById" resultType="com.example.springboot.entity.Category">
+        SELECT * FROM Category
+        WHERE id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM Category
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE Category
+        SET
+            name = #{name},
+            remark = #{remark}
+        WHERE id = #{id};
+    </update>
+
+    <insert id="insert">
+        INSERT INTO Category(name,remark,pid)
+        VALUES(#{name},#{remark},#{pid})
+    </insert>
+</mapper>

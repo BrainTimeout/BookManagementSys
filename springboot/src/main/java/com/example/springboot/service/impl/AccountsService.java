@@ -31,6 +31,11 @@ public class AccountsService implements IAccountsService {
     }
 
     @Override
+    public Accounts getByAccount(String account){
+        return accountsMapper.getByAccount(account);
+    }
+
+    @Override
     public void update(Accounts accounts) {
         accountsMapper.update(accounts);
     }

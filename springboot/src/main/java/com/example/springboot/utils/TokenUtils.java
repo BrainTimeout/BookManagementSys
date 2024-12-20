@@ -4,9 +4,8 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.springboot.controller.dto.LoginDTO;
-import com.example.springboot.controller.request.LoginRequest;
-import com.example.springboot.service.IAuthService;
+import com.example.springboot.entity.Accounts;
+import com.example.springboot.service.IAccountsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,14 +20,14 @@ import java.util.Date;
 @Slf4j
 public class TokenUtils {
 
-    private static IAuthService staticAuthService;
+    private static IAccountsService staticAccountsService;
 
     @Resource
-    private IAuthService authService;
+    private IAccountsService accountsService;
 
     @PostConstruct
     public void setUserService() {
-        staticAuthService = authService;
+        staticAccountsService = accountsService;
     }
 
     /**
@@ -48,7 +47,7 @@ public class TokenUtils {
      * @return user对象
      *  /admin?token=xxxx
      */
-    public static LoginDTO getCurrentAdmin() {
+    public static Accounts getCurrentAccounts() {
         String token = null;
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -61,9 +60,7 @@ public class TokenUtils {
                 return null;
             }
             String account = JWT.decode(token).getAudience().get(0);
-            LoginRequest loginRequest = new LoginRequest();
-            loginRequest.setAccount();
-            return staticAuthService.login();
+            return staticAccountsService.getByAccount(account);
         } catch (Exception e) {
             log.error("获取当前登录的管理员信息失败, token={}", token,  e);
             return null;

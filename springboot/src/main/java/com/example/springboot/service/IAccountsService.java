@@ -14,6 +14,8 @@ public interface IAccountsService {
 
     Object page(AccountsRequest accountsRequest);
 
+    Accounts getByAccount(String account);
+
     void update(Accounts accounts);
 
     void delete(String account);

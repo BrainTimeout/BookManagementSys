@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookies from "js-cookie";
 
 const request = axios.create({
     baseURL:"http://localhost:8089/api",
@@ -7,6 +8,12 @@ const request = axios.create({
 
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
+
+    const loginDTOJson = Cookies.get("loginDTO")
+    if(loginDTOJson){
+        // 设置请求头
+        config.headers['token'] = JSON.parse(loginDTOJson).token;
+    }
     return config
 },error => {
     return Promise.reject(error)

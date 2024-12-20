@@ -15,7 +15,7 @@
             <i class="mdi mdi-book-open-page-variant"></i>
             <span>书籍管理</span>
           </template>
-          <el-menu-item index="/bookCategoryManage">
+          <el-menu-item index="/categoryList">
             <i class="mdi mdi-bookmark-outline"></i>
             <span>书籍分类管理</span>
           </el-menu-item>

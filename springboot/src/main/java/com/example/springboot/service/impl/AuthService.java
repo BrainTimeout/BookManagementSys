@@ -14,6 +14,7 @@ import com.example.springboot.mapper.UserProfileMapper;
 import com.example.springboot.service.IAccountsService;
 import com.example.springboot.service.IAuthService;
 import com.example.springboot.service.IUserProfileService;
+import com.example.springboot.utils.TokenUtils;
 import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,13 @@ public class AuthService implements IAuthService {
                 throw new ServiceException("您不是管理员");
             }
         }
+
+        String token = TokenUtils.genToken(accounts.getAccount(), accounts.getPassword());
+
         LoginDTO loginDTO = new LoginDTO();
 
-        BeanUtils.copyProperties(accounts,loginDTO);
+        loginDTO.setToken(token);
+        loginDTO.setUsertype(accounts.getUsertype());
 
         UserProfile userProfile = userProfileMapper.getByAccount(accounts.getAccount());
 
@@ -77,8 +82,6 @@ public class AuthService implements IAuthService {
         }
         // 加密
         accounts.setPassword(securePass(accounts.getPassword()));
-        Date nowTime = new Date();
-        accounts.setBanuntil(nowTime);
         accountsMapper.insert(accounts);
         userProfileMapper.update(joinRequest.getUserProfile());
     }

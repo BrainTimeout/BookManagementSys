@@ -16,18 +16,6 @@
               <template #prepend><i class="mdi mdi-lock"></i></template>
             </el-input>
           </el-form-item>
-          <el-form-item label="验证码" prop="captcha">
-            <el-row type="flex" justify="space-between" align="middle">
-              <!-- 验证码输入框 -->
-              <el-col :span="16">
-                <el-input v-model="msg.captcha" placeholder="请输入验证码"></el-input>
-              </el-col>
-              <!-- 验证码图片 -->
-              <el-col :span="7">
-                <img :src="captchaImage" class="captcha-image" @click="refreshCaptcha" title="点击刷新" alt="captcha">
-              </el-col>
-            </el-row>
-          </el-form-item>
           <!-- 角色选择 -->
           <el-form-item label="身份" prop="usertype">
             <el-radio-group v-model="msg.usertype">
@@ -57,7 +45,6 @@ export default {
         password: '',
         usertype: '',
       },
-      captchaImage: require('@/assets/images/captcha.png'), // 引入验证码图片
       logo: require('@/assets/images/logo-sidebar.png') // 引入logo图片
     };
   },
@@ -78,7 +65,7 @@ export default {
           this.$notify.error(res.msg);
         }
       }catch {
-        this.$message.error(res.msg);
+        this.$message.error("登录请求发送失败");
       }
     },
     refreshCaptcha() {

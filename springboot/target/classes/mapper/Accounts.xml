@@ -30,8 +30,8 @@
         WHERE account = #{account} and password = #{password}
     </select>
 
-    <select id="getPassword" resultType="String">
-        SELECT password FROM Accounts
+    <select id="getByAccount" resultType="com.example.springboot.entity.Accounts">
+        SELECT * FROM Accounts
         WHERE account = #{account}
     </select>
 
@@ -52,8 +52,8 @@
     </update>
 
     <insert id="insert">
-        INSERT INTO Accounts (account, password, usertype, banuntil)
-        VALUES (#{account}, #{password}, #{usertype}, #{banuntil});
+        INSERT INTO Accounts (account, password, usertype)
+        VALUES (#{account}, #{password}, #{usertype}});
     </insert>
 
     <delete id="delete">

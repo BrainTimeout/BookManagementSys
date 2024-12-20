@@ -17,6 +17,8 @@ public interface AccountsMapper {
 
     Accounts getByAccountAndPassword(LoginRequest loginRequest);
 
+    Accounts getByAccount(String account);
+
     void update(Accounts accounts);
 
     void updatePassword(UpdatePasswordRequest updatePasswordRequest);
@@ -24,4 +26,5 @@ public interface AccountsMapper {
     void delete(String account);
 
     void insert(Accounts accounts);
+
 }
