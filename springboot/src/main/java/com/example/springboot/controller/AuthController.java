@@ -4,6 +4,7 @@ import com.example.springboot.comon.Result;
 import com.example.springboot.controller.request.JoinRequest;
 import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.controller.request.UpdatePasswordRequest;
+import com.example.springboot.entity.Accounts;
 import com.example.springboot.service.IAccountsService;
 import com.example.springboot.service.IAuthService;
 import com.example.springboot.service.IUserProfileService;
@@ -28,6 +29,12 @@ public class AuthController {
     public Result login(@RequestBody LoginRequest loginRequest){
         return Result.success(authService.login(loginRequest));
     }
+
+    @PostMapping("/UserProfile")
+    public Result getUserProfile(@RequestBody LoginRequest loginRequest){
+        return Result.success(authService.getProfile(loginRequest));
+    }
+
 
     @PutMapping("/UpdatePassword")
     public Result updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest){

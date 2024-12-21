@@ -40,7 +40,8 @@
         SET
             account = #{account},
             usertype = #{usertype},
-            banuntil = #{banuntil}
+            banuntil = #{banuntil},
+            balance = #{balance}
         WHERE account = #{account};
     </update>
 
@@ -53,7 +54,7 @@
 
     <insert id="insert">
         INSERT INTO Accounts (account, password, usertype)
-        VALUES (#{account}, #{password}, #{usertype}});
+        VALUES (#{account}, #{password}, #{usertype});
     </insert>
 
     <delete id="delete">

@@ -7,5 +7,6 @@ import lombok.Data;
 public class LoginDTO {
     private String token;
     private String usertype;
+    private Integer balance;
     private UserProfile userProfile;
 }

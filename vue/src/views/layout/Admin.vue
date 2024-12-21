@@ -5,7 +5,7 @@
         <img :src="logo" alt="Logo" class="sidebar-logo" />
         <span class="sidebar-title">图书馆管理系统</span>
       </div>
-      <el-menu :default-active="$route.path" :default-openeds="['1','2']" router class="el-menu-demo">
+      <el-menu :default-active="$route.path" :default-openeds="['1','2','3']" router class="el-menu-demo">
         <el-menu-item index="/">
           <i class="mdi mdi-home"></i>
           <span>首页</span>
@@ -15,12 +15,34 @@
             <i class="mdi mdi-book-open-page-variant"></i>
             <span>书籍管理</span>
           </template>
+          <el-menu-item index="/bookList">
+            <i class="mdi mdi-bookmark-outline"></i>
+            <span>书籍管理</span>
+          </el-menu-item>
           <el-menu-item index="/categoryList">
             <i class="mdi mdi-bookmark-outline"></i>
             <span>书籍分类管理</span>
           </el-menu-item>
         </el-submenu>
         <el-submenu index="2">
+          <template #title>
+            <i class="mdi mdi-book-open-page-variant"></i>
+            <span>借阅管理</span>
+          </template>
+          <el-menu-item index="/borrowBook">
+            <i class="mdi mdi-bookmark-outline"></i>
+            <span>借阅书籍</span>
+          </el-menu-item>
+          <el-menu-item index="/returnBook">
+            <i class="mdi mdi-bookmark-outline"></i>
+            <span>归还书籍</span>
+          </el-menu-item>
+          <el-menu-item index="/borrowList">
+            <i class="mdi mdi-bookmark-outline"></i>
+            <span>借阅列表</span>
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
           <template #title>
             <i class="mdi mdi-account-settings"></i>
             <span>用户管理</span>

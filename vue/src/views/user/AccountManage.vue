@@ -27,6 +27,7 @@
           <span>{{ getUserType(scope.row.usertype) }}</span> <!-- 修改为 usertype -->
         </template>
       </el-table-column>
+      <el-table-column prop="balance" label="账户余额" />
       <el-table-column label="封禁状态">
         <template slot-scope="scope">
           <span v-if="new Date(scope.row.banuntil) > new Date()">
@@ -39,7 +40,12 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="修改密码">
+      <el-table-column label="账户充值" width="100px">
+        <template slot-scope="scope">
+          <el-button type="warning" icon="el-icon-money" circle @click.stop="haddleAddBalance(scope.row)" />
+        </template>
+      </el-table-column>
+      <el-table-column label="修改密码" width="100px">
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" circle @click.stop="haddleEditPassword(scope.row)" />
         </template>
@@ -60,6 +66,34 @@
         layout="total, prev, pager, next, jumper"
         class="pagination"
     />
+
+    <el-dialog
+        title="用户充值"
+        :visible.sync="addBalanceDialogVisible"
+        width="400px"
+    >
+      <el-form :model="addBalanceForm" label-width="80px">
+        <el-form-item label="用户">
+          <el-input v-model="addBalanceForm.account" disabled />
+        </el-form-item>
+        <el-form-item label="当前余额">
+          <el-input v-model="nowBalance" disabled />
+        </el-form-item>
+        <el-form-item label="充值金额">
+          <el-input-number
+              v-model="addBalanceForm.amount"
+              :min="0"
+              :max="1000"
+              placeholder="请输入充值金额"
+              style="width: 100%;"
+          />
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="addBalanceDialogVisible = false">取消</el-button>
+    <el-button type="primary" @click="addBalance">确认充值</el-button>
+  </span>
+    </el-dialog>
 
     <!-- 编辑用户信息对话框 -->
     <el-dialog title="编辑账号信息" :visible.sync="editDialogVisible" width="50%" class="edit-dialog">
@@ -138,6 +172,12 @@ export default {
         usertype: "",  // 修改为 usertype
       },
       autoSearch: false,
+      addBalanceDialogVisible: false,
+      nowBalance:"",
+      addBalanceForm:{
+        account:"",
+        amount:"",
+      },
       editDialogVisible: false,
       editForm: {
         account: "",
@@ -201,6 +241,12 @@ export default {
       this.editForm = { ...row };
       this.editDialogVisible = true;
     },
+    haddleAddBalance(row){
+      this.addBalanceForm.account = row.account;
+      this.addBalanceForm.amount = 0;
+      this.nowBalance= row.balance;
+      this.addBalanceDialogVisible = true;
+    },
     haddleEditPassword(row){
       this.editPasswordForm.account = row.account;
       this.editPasswordDialogVisible = true;
@@ -225,6 +271,25 @@ export default {
     saveEdit() {
       this.update();
       this.editDialogVisible = false;
+    },
+    async addBalance(){
+      if(this.addBalanceForm.amount <= 0 || this.addBalanceForm.amount>=1001){
+        this.$message.error("请输入合法的金额");
+        return;
+      }
+      try{
+        const res = await request.put(`/Accounts/AddBalance`,this.addBalanceForm);
+        if (res.code === "200") {
+          this.$message.success("充值成功！");
+          this.load();
+          this.addBalanceDialogVisible = false;
+        } else {
+          this.$message.error("充值失败");
+        }
+      } catch {
+        this.$message.error("充值失败");
+        this.addBalanceDialogVisible = false;
+      }
     },
     async updatePassword(){
       try {

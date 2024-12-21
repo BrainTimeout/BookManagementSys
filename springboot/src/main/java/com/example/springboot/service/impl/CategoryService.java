@@ -1,5 +1,6 @@
 package com.example.springboot.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.example.springboot.controller.request.CategoryPageRequest;
 import com.example.springboot.controller.request.PageRequest;
 import com.example.springboot.controller.request.UserProfilePageRequest;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +26,37 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public List<Category> list(){ return categoryMapper.list();};
+
+    // 递归生成菜单树
+    private List<Category> createTree(Integer pid, List<Category> categories) {
+        List<Category> categoryTree = new ArrayList<>();
+        for (Category category : categories) {
+            if(pid == null){
+                if(category.getPid() == null){
+                    categoryTree.add(category);
+                    category.setChildren(createTree(category.getId(), categories));
+                }
+            }else{
+                if (pid.equals(category.getPid())) {
+                    categoryTree.add(category);
+                    category.setChildren(createTree(category.getId(), categories));
+                }
+            }
+            if(CollUtil.isEmpty(category.getChildren())){
+                category.setChildren(null);
+            }
+        }
+        return categoryTree;
+    }
+
+    @Override
+    public List<Category> tree() {
+        // 查询出所有的菜单数据集合
+        List<Category> categories = categoryMapper.list();
+        // 生成菜单树
+        return createTree(null, categories);
+    }
+
 
     @Override
     public PageInfo<Category> page(CategoryPageRequest categoryPageRequest) {

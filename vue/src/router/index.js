@@ -29,6 +29,21 @@ const routes = [
         component:() => import('../views/category/List.vue')
       },
       {
+        path:'/bookList',
+        name:'bookList',
+        component:() => import('../views/book/List.vue')
+      },
+      {
+        path:'/borrowList',
+        name:'borrowList',
+        component:() => import('../views/borrow/BorrowList.vue')
+      },
+      {
+        path:'/borrowBook',
+        name:'/borrowBook',
+        component:() => import('../views/borrow/BorrowBook')
+      },
+      {
         path: '/userManage',
         name: 'userManage',
         component: () => import('../views/user/UserProfileManage.vue'),

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -24,6 +25,11 @@ public class CategoryController {
         return Result.success(categoryList);
     }
 
+    @GetMapping("Tree")
+    public Result tree(){
+        List<Category> categoryList = categoryService.tree();
+        return Result.success(categoryList);
+    }
     @GetMapping("/Page")
     public Result page(CategoryPageRequest categoryPageRequest){
         return Result.success(categoryService.page(categoryPageRequest));

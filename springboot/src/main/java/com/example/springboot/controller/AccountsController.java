@@ -2,6 +2,7 @@ package com.example.springboot.controller;
 
 import com.example.springboot.comon.Result;
 import com.example.springboot.controller.request.AccountsRequest;
+import com.example.springboot.controller.request.AddBalanceRequest;
 import com.example.springboot.entity.Accounts;
 import com.example.springboot.service.IAccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class AccountsController {
     @PutMapping("/Update")
     public Result update(@RequestBody Accounts accounts){
         accountsService.update(accounts);
+        return Result.success();
+    }
+
+    @PutMapping("/AddBalance")
+    public Result addBalance(@RequestBody AddBalanceRequest updateBalanceRequest){
+        accountsService.addBalance(updateBalanceRequest);
         return Result.success();
     }
 

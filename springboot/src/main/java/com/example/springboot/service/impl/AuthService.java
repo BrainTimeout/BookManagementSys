@@ -11,12 +11,8 @@ import com.example.springboot.entity.UserProfile;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.AccountsMapper;
 import com.example.springboot.mapper.UserProfileMapper;
-import com.example.springboot.service.IAccountsService;
 import com.example.springboot.service.IAuthService;
-import com.example.springboot.service.IUserProfileService;
 import com.example.springboot.utils.TokenUtils;
-import org.apache.ibatis.javassist.expr.NewArray;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +62,7 @@ public class AuthService implements IAuthService {
 
         loginDTO.setToken(token);
         loginDTO.setUsertype(accounts.getUsertype());
+        loginDTO.setBalance(accounts.getBalance());
 
         UserProfile userProfile = userProfileMapper.getByAccount(accounts.getAccount());
 
@@ -76,19 +73,35 @@ public class AuthService implements IAuthService {
 
     @Override
     public void join(JoinRequest joinRequest){
-        Accounts accounts = joinRequest.getAccounts();
-        if(StrUtil.isBlank(accounts.getPassword())){
-            accounts.setPassword(DEFAULT_PASS);
+         try {
+             Accounts accounts = joinRequest.getAccounts();
+             if (StrUtil.isBlank(accounts.getPassword())) {
+                 accounts.setPassword(DEFAULT_PASS);
+             }
+             // 加密
+             accounts.setPassword(securePass(accounts.getPassword()));
+             accountsMapper.insert(accounts);
+             userProfileMapper.update(joinRequest.getUserProfile());
+         }catch(Exception e){
+             throw new ServiceException("该账号已存在");
         }
-        // 加密
-        accounts.setPassword(securePass(accounts.getPassword()));
-        accountsMapper.insert(accounts);
-        userProfileMapper.update(joinRequest.getUserProfile());
     }
 
     @Override
     public void updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         updatePasswordRequest.setPassword(securePass(updatePasswordRequest.getPassword()));
         accountsMapper.updatePassword(updatePasswordRequest);
+    }
+
+    @Override
+    public UserProfile getProfile(LoginRequest loginRequest) {
+        loginRequest.setAccount(loginRequest.getAccount());
+        // 加码
+        loginRequest.setPassword(securePass(loginRequest.getPassword()));
+        Accounts accounts = accountsMapper.getByAccountAndPassword(loginRequest);
+        if(accounts == null){
+            throw new ServiceException("用户名或密码错误");
+        }
+        return userProfileMapper.getByAccount(accounts.getAccount());
     }
 }

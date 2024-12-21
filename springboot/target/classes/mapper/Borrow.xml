@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.BorrowMapper">
+    <select id="list" resultType="com.example.springboot.entity.BorrowProfile">
+        select * from BorrowProfile
+    </select>
+
+    <select id="listByCondition" resultType="com.example.springboot.entity.BorrowProfile">
+        SELECT * FROM BorrowProfile
+        <where>
+            <!-- 查询 account -->
+            <if test="account != null and account != ''">
+                AND account LIKE CONCAT('%', #{account}, '%')
+            </if>
+
+            <!-- 查询 bookNo -->
+            <if test="bookNo != null and bookNo != ''">
+                AND bookNo LIKE CONCAT('%', #{bookNo}, '%')
+            </if>
+
+            <!-- 查询 username -->
+            <if test="username != null and username != ''">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+
+            <!-- 查询图书名称 -->
+            <if test="bookName != null and bookName != ''">
+                AND book.name LIKE CONCAT('%', #{bookName}, '%')
+            </if>
+
+            <!-- 查询 dueDate -->
+            <if test="dueDate != null and dueDate != ''">
+                AND dueDate LIKE CONCAT('%',#{dueDate},'%')
+            </if>
+        </where>
+        <!-- 排序条件 -->
+        <if test="sortOrder == 'ascending'">
+            ORDER BY id ASC
+        </if>
+        <if test="sortOrder == 'descending'">
+            ORDER BY id DESC
+        </if>
+    </select>
+
+
+    <select id = "getById" resultType="com.example.springboot.entity.BorrowProfile">
+        SELECT * FROM BorrowProfile
+        WHERE id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM Borrow
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE Borrow
+        SET dueDate = #{dueDate}
+        WHERE id = #{id};
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Borrow (
+            bookNo,
+            account
+        )
+        VALUES (
+                   #{bookNo},
+                   #{account}
+               )
+    </insert>
+</mapper>

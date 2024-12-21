@@ -11,6 +11,8 @@ import java.util.List;
 public interface ICategoryService {
     List<Category> list();
 
+    List<Category> tree();
+
     PageInfo<Category> page(CategoryPageRequest categoryPageRequest);
 
     Category getById(Integer id);
