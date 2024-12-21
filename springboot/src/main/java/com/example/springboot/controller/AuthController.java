@@ -30,9 +30,9 @@ public class AuthController {
         return Result.success(authService.login(loginRequest));
     }
 
-    @PostMapping("/UserProfile")
-    public Result getUserProfile(@RequestBody LoginRequest loginRequest){
-        return Result.success(authService.getProfile(loginRequest));
+    @PostMapping("/GetAuthInfo")
+    public Result getAuthInfo(@RequestBody LoginRequest loginRequest){
+        return Result.success(authService.getAuthInfo(loginRequest));
     }
 
 

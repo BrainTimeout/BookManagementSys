@@ -16,6 +16,11 @@
         <el-input v-model="borrowForm.score" :disabled="true" type="number" placeholder="自动填充" />
       </el-form-item>
 
+      <!-- 图书积分 -->
+      <el-form-item label="当前数量" prop="score">
+        <el-input v-model="borrowForm.nums" :disabled="true" type="number" placeholder="自动填充" />
+      </el-form-item>
+
       <!-- 用户账号 -->
       <el-form-item label="用户账号" prop="account" :rules="[{ required: true, message: '请输入用户账号', trigger: 'blur' }]">
         <el-input v-model="borrowForm.account" placeholder="请输入用户账号" />
@@ -26,14 +31,19 @@
         <el-input v-model="borrowForm.password" @blur="fetchUserDetails" placeholder="请输入用户密码" />
       </el-form-item>
 
-      <!-- 用户电话 -->
-      <el-form-item label="用户电话" prop="phone">
-        <el-input v-model="borrowForm.phone" :disabled="true" placeholder="自动填充" />
-      </el-form-item>
-
       <!-- 用户名 -->
       <el-form-item label="用户名" prop="username">
         <el-input v-model="borrowForm.username" :disabled="true" placeholder="自动填充" />
+      </el-form-item>
+
+      <!-- 用户名 -->
+      <el-form-item label="用户余额" prop="username">
+        <el-input v-model="borrowForm.balance" :disabled="true" placeholder="自动填充" />
+      </el-form-item>
+
+      <!-- 用户电话 -->
+      <el-form-item label="用户电话" prop="phone">
+        <el-input v-model="borrowForm.phone" :disabled="true" placeholder="自动填充" />
       </el-form-item>
 
       <!-- 提交与重置按钮 -->
@@ -55,11 +65,13 @@ export default {
       borrowForm: {
         name: "",
         bookNo: "",
+        score: null,
+        nums:"",
         account: "",
+        balance:"",
         password:"",
         phone: "",
-        username: "",
-        score: null
+        username: ""
       }
     };
   },
@@ -72,6 +84,7 @@ export default {
         if (res.code === "200") {
           this.borrowForm.name = res.data.name || "";
           this.borrowForm.score = res.data.score || null;
+          this.borrowForm.nums = res.data.nums || 0;
         } else {
           this.borrowForm.name = "";
           this.borrowForm.score = "";
@@ -89,10 +102,11 @@ export default {
       if (!this.borrowForm.account) return;
 
       try {
-        const res = await request.post(`Auth/UserProfile`,{ account:this.borrowForm.account,password:this.borrowForm.password });
+        const res = await request.post(`Auth/GetAuthInfo`,{ account:this.borrowForm.account,password:this.borrowForm.password });
         if (res.code === "200") {
-          this.borrowForm.username = res.data.username || "";
-          this.borrowForm.phone = res.data.phone || "";
+          this.borrowForm.username = res.data.userProfile.username || "";
+          this.borrowForm.balance = res.data.balance || "";
+          this.borrowForm.phone = res.data.userProfile.phone || "";
         } else {
           this.$message.error("未找到该用户");
         }

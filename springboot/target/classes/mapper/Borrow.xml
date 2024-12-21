@@ -7,6 +7,12 @@
         select * from BorrowProfile
     </select>
 
+
+    <select id="listByAccount" resultType="com.example.springboot.entity.BorrowProfile">
+        select * from BorrowProfile
+        where account = #{account}
+    </select>
+
     <select id="listByCondition" resultType="com.example.springboot.entity.BorrowProfile">
         SELECT * FROM BorrowProfile
         <where>

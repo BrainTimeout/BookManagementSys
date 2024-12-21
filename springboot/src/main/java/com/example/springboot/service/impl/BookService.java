@@ -2,6 +2,7 @@ package com.example.springboot.service.impl;
 
 import com.example.springboot.controller.request.PageRequest;
 import com.example.springboot.entity.Book;
+import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.BookMapper;
 import com.example.springboot.service.IBookService;
 import com.github.pagehelper.PageHelper;
@@ -38,7 +39,12 @@ public class BookService implements IBookService {
 
     @Override
     public void insert(Book Book){
-        bookMapper.insert(Book);
+
+        try{
+            bookMapper.insert(Book);
+        }catch(Exception e){
+            throw new ServiceException("数据插入异常",e);
+        }
     };
 
     @Override

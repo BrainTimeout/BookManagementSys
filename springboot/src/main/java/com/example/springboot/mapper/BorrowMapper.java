@@ -11,6 +11,8 @@ import java.util.List;
 public interface BorrowMapper {
     List<BorrowProfile> list();
 
+    List<BorrowProfile> listByAccount(String account);
+
     List<BorrowProfile> listByCondition(PageRequest PageRequest);
 
     BorrowProfile getById(Integer id);
@@ -20,4 +22,6 @@ public interface BorrowMapper {
     void update(Borrow borrow);
 
     void deleteById(Integer id);
+
+
 }

@@ -4,7 +4,7 @@ import com.example.springboot.entity.UserProfile;
 import lombok.Data;
 
 @Data
-public class LoginDTO {
+public class AuthInfo {
     private String token;
     private String usertype;
     private Integer balance;

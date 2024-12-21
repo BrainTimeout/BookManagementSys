@@ -154,9 +154,9 @@
         <el-form-item label="分类">
           <el-cascader
               :props = "{value:'name',label:'name'}"
-            v-model="newBook.category"
-            :options="categories"
-            @change="handleNewCategoriesChange"></el-cascader>
+              v-model="newBook.category"
+              :options="categories"
+              @change="handleNewCategoriesChange"></el-cascader>
         </el-form-item>
         <el-form-item label="标准码">
           <el-input v-model="newBook.bookNo" placeholder="请输入标准码" />
@@ -242,7 +242,7 @@
 import request from "@/utils/request"; // 请根据你的实际请求方式调整
 
 export default {
-  name: "BookList",
+  name: "bookList",
   data() {
     return {
       tableData: [],  // 存储书籍数据

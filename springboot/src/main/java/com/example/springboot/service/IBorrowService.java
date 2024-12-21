@@ -10,6 +10,8 @@ import java.util.List;
 public interface IBorrowService {
     List<BorrowProfile> list();
 
+    List<BorrowProfile> listByAccount(String account);
+
     PageInfo<BorrowProfile> page(PageRequest PageRequest);
 
     BorrowProfile getById(Integer id);

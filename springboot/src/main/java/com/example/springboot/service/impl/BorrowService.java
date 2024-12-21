@@ -32,7 +32,12 @@ public class BorrowService implements IBorrowService {
     BookMapper bookMapper;
 
     @Override
-    public List<BorrowProfile> list(){ return BorrowMapper.list();};
+    public List<BorrowProfile> list(){ return BorrowMapper.list();}
+
+    @Override
+    public List<BorrowProfile> listByAccount(String account) {
+        return BorrowMapper.listByAccount(account);
+    }
 
     @Override
     public PageInfo<BorrowProfile> page(PageRequest pageRequest) {

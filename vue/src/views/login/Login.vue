@@ -54,11 +54,11 @@ export default {
         const res = await request.post('/Auth/Login',this.msg);
         if(res.code === "200") {
           this.$notify.success("登录成功");
-          Cookies.set('loginDTO',JSON.stringify(res.data));
+          Cookies.set('authInfo',JSON.stringify(res.data));
           if(res.data.usertype === "admin"){
             await this.$router.push({path: '/admin'});
           }else{
-            await this.$router.push({path: '/'});
+            await this.$router.push({path: '/user'});
           }
         }
         else{

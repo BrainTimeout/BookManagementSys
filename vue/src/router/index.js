@@ -14,9 +14,28 @@ const routes = [
   },
     // 主页
   {
-    path: '/',
+    path: '/user',
     name: 'user',
     component: () => import('../views/layout/User.vue'),
+    children: [
+      {
+        path:'/bookShow',
+        name:'bookShow',
+        component:() => import('../views/book/Show.vue')
+      },
+      {
+        path: "/bookDetail/:id",
+        name: "bookDetail",
+        component:() => import('../views/book/Detail.vue'),
+        props: true,
+      },
+      {
+        path: "/currentBorrow/:account",
+        name: "currentBorrow",
+        component:() => import('../views/book/CurrentBorrow.vue'),
+        props: true,
+      },
+    ]
   },
   {
     path: '/admin',
@@ -75,7 +94,7 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to,from,next)=>{
   if(to.path === '/login') next()
-  const loginDTO = Cookies.get("loginDTO")
+  const loginDTO = Cookies.get("authInfo")
   if(!loginDTO && to.path !== '/login') return next("/login")
   next()
 })

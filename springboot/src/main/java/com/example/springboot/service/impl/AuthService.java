@@ -2,7 +2,7 @@ package com.example.springboot.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.example.springboot.controller.dto.LoginDTO;
+import com.example.springboot.controller.dto.AuthInfo;
 import com.example.springboot.controller.request.JoinRequest;
 import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.controller.request.UpdatePasswordRequest;
@@ -37,7 +37,22 @@ public class AuthService implements IAuthService {
 
 
     @Override
-    public LoginDTO login(LoginRequest loginRequest){
+    public AuthInfo getAuthInfo(LoginRequest loginRequest) {
+        AuthInfo authInfo = new AuthInfo();
+        loginRequest.setAccount(loginRequest.getAccount());
+        // 加码
+        loginRequest.setPassword(securePass(loginRequest.getPassword()));
+        Accounts accounts = accountsMapper.getByAccountAndPassword(loginRequest);
+        if(accounts == null){
+            throw new ServiceException("用户名或密码错误");
+        }
+        authInfo.setBalance(accounts.getBalance());
+        authInfo.setUserProfile(userProfileMapper.getByAccount(accounts.getAccount()));
+        return authInfo;
+    }
+
+    @Override
+    public AuthInfo login(LoginRequest loginRequest){
         // 加码
         loginRequest.setPassword(securePass(loginRequest.getPassword()));
         Accounts accounts = accountsMapper.getByAccountAndPassword(loginRequest);
@@ -56,19 +71,24 @@ public class AuthService implements IAuthService {
             }
         }
 
-        String token = TokenUtils.genToken(accounts.getAccount(), accounts.getPassword());
+        String token;
+        if(accounts.getUsertype().equals("admin")){
+            token = TokenUtils.genToken(accounts.getAccount(), accounts.getPassword());
+        }else{
+            token = null;
+        }
 
-        LoginDTO loginDTO = new LoginDTO();
+        AuthInfo authInfo = new AuthInfo();
 
-        loginDTO.setToken(token);
-        loginDTO.setUsertype(accounts.getUsertype());
-        loginDTO.setBalance(accounts.getBalance());
+        authInfo.setToken(token);
+        authInfo.setUsertype(accounts.getUsertype());
+        authInfo.setBalance(accounts.getBalance());
 
         UserProfile userProfile = userProfileMapper.getByAccount(accounts.getAccount());
 
-        loginDTO.setUserProfile(userProfile);
+        authInfo.setUserProfile(userProfile);
 
-        return loginDTO;
+        return authInfo;
     }
 
     @Override
@@ -93,15 +113,4 @@ public class AuthService implements IAuthService {
         accountsMapper.updatePassword(updatePasswordRequest);
     }
 
-    @Override
-    public UserProfile getProfile(LoginRequest loginRequest) {
-        loginRequest.setAccount(loginRequest.getAccount());
-        // 加码
-        loginRequest.setPassword(securePass(loginRequest.getPassword()));
-        Accounts accounts = accountsMapper.getByAccountAndPassword(loginRequest);
-        if(accounts == null){
-            throw new ServiceException("用户名或密码错误");
-        }
-        return userProfileMapper.getByAccount(accounts.getAccount());
-    }
 }

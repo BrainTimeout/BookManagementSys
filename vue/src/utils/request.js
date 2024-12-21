@@ -9,10 +9,10 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
 
-    const loginDTOJson = Cookies.get("loginDTO")
-    if(loginDTOJson){
+    const authInfoJson = Cookies.get("authInfo")
+    if(authInfoJson){
         // 设置请求头
-        config.headers['token'] = JSON.parse(loginDTOJson).token;
+        config.headers['token'] = JSON.parse(authInfoJson).token;
     }
     return config
 },error => {
