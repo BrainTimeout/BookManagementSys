@@ -3,13 +3,12 @@ package com.example.springboot.controller;
 import com.example.springboot.comon.Result;
 import com.example.springboot.controller.request.BookPageRequest;
 import com.example.springboot.controller.request.LoginRequest;
+import com.example.springboot.controller.request.UpdatePasswordRequest;
 import com.example.springboot.entity.Book;
 import com.example.springboot.entity.BorrowProfile;
 import com.example.springboot.entity.Comment;
-import com.example.springboot.service.IAuthService;
-import com.example.springboot.service.IBookService;
-import com.example.springboot.service.IBorrowService;
-import com.example.springboot.service.ICommentService;
+import com.example.springboot.entity.UserProfile;
+import com.example.springboot.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +30,12 @@ public class UserController {
 
     @Autowired
     ICommentService commentService;
+
+    @Autowired
+    IUserService userService;
+
+    @Autowired
+    IUserProfileService userProfileService;
 
     @GetMapping("/List")
     public Result list(){
@@ -58,9 +63,27 @@ public class UserController {
         return Result.success(comments);
     }
 
+    @PostMapping("/PostComment")
+    public Result postComment(@RequestBody Comment comment){
+        commentService.postComment(comment);
+        return Result.success("评论成功");
+    }
+
     @GetMapping("/GetAuthInfo/{account}")
     public Result getAuthInfo(@PathVariable String account){
         return Result.success(authService.getAuthInfo(account));
     }
 
+
+    @PutMapping("/UpdatePassword")
+    public Result updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest){
+        userService.updatePassword(updatePasswordRequest);
+        return Result.success();
+    }
+
+    @PutMapping("/UserProfileUpdate")
+    public Result userProfileUpdate(@RequestBody UserProfile userProfile){
+        userProfileService.update(userProfile);
+        return Result.success("更新成功");
+    }
 }

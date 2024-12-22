@@ -159,7 +159,11 @@
               @change="handleNewCategoriesChange"></el-cascader>
         </el-form-item>
         <el-form-item label="标准码">
-          <el-input v-model="newBook.bookNo" placeholder="请输入标准码" />
+          <el-input
+              v-model="newBook.bookNo"
+              placeholder="请输入标准码"
+              @input="handleNewBookNoChange"
+          />
         </el-form-item>
         <el-form-item label="借书积分">
           <el-input v-model="newBook.score" placeholder="请输入借书积分" />
@@ -169,6 +173,20 @@
         </el-form-item>
         <el-form-item label="封面">
           <el-input v-model="newBook.cover" placeholder="请输入封面" />
+          <el-upload
+              class="cover-uploader"
+              :action="coverUpLoadUrl"
+              :show-file-list="false"
+              :before-upload="beforeCoverUpload"
+              :on-change="handleCoverChange"
+              :on-success="handleNewCoverSuccess"
+              :on-error="handleCoverError"
+          >
+            <span class="upload-text">点击上传封面</span>
+          </el-upload>
+          <div v-if="newBook.cover">
+            <img :src="editBook.cover" alt="封面预览" style="width: 150px; height: 225px; object-fit: cover; margin-top: 10px;" />
+          </div>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -218,8 +236,13 @@
               @change="handleEditCategoriesChange"></el-cascader>
         </el-form-item>
         <el-form-item label="标准码">
-          <el-input v-model="editBook.bookNo" placeholder="请输入标准码" />
+          <el-input
+              v-model="editBook.bookNo"
+              placeholder="请输入标准码"
+              @input="handleEditBookNoChange"
+          />
         </el-form-item>
+
         <el-form-item label="借书积分">
           <el-input v-model="editBook.score" placeholder="请输入借书积分" />
         </el-form-item>
@@ -228,7 +251,22 @@
         </el-form-item>
         <el-form-item label="封面">
           <el-input v-model="editBook.cover" placeholder="请输入封面" />
+          <el-upload
+              class="cover-uploader"
+              :action="coverUpLoadUrl"
+              :show-file-list="false"
+              :before-upload="beforeCoverUpload"
+              :on-change="handleCoverChange"
+              :on-success="handleEditCoverSuccess"
+              :on-error="handleCoverError"
+          >
+            <span class="upload-text">点击上传封面</span>
+          </el-upload>
+          <div v-if="editBook.cover">
+            <img :src="editBook.cover" alt="封面预览" style="width: 150px; height: 225px; object-fit: cover; margin-top: 10px;" />
+          </div>
         </el-form-item>
+
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取消</el-button>
@@ -288,9 +326,53 @@ export default {
         nums:"",
         cover: "",
       },
+      FileUrl:"",
+      coverUpLoadUrl:"",
     };
   },
+  created() {
+    try {
+      request.get("/Category/Tree").then(res => {
+        this.categories = res.data;
+      });
+    } catch (error) {
+      this.$message.error("分类加载失败");
+    }
+    this.FileUrl=`${request.defaults.baseURL}/File/`;
+    this.load();  // 初始化加载数据
+  },
   methods: {
+    handleEditBookNoChange(){
+      this.coverUpLoadUrl = this.FileUrl + `Upload/Cover/${this.editBook.bookNo}.jpg`;
+    },
+    handleNewBookNoChange(){
+      this.coverUpLoadUrl = this.FileUrl + `Upload/Cover/${this.newBook.bookNo}.jpg`;
+    },
+    beforeCoverUpload(file) {
+      const isImage = file.type.startsWith('image/');
+      if (!isImage) {
+        this.$message.error('只能上传图片文件！');
+      }
+      return isImage;
+    },
+
+    // 处理头像上传后的变更
+    handleCoverChange(file) {
+
+    },
+    // 上传成功后的回调
+    handleEditCoverSuccess(response) {
+      this.editBook.cover = this.FileUrl + `Download/Cover/${this.editBook.bookNo}.jpg?time=${new Date().getTime()}`;
+    },
+
+    handleNewCoverSuccess(response) {
+      this.newBook.cover = this.FileUrl + `Download/Cover/${this.newBook.bookNo}.jpg?time=${new Date().getTime()}`;
+    },
+
+    // 上传失败的回调
+    handleCoverError(error, file, fileList) {
+      this.$message.error('封面上传失败');
+    },
     // 加载数据
     async load() {
       try {
@@ -351,6 +433,7 @@ export default {
     handleEdit(row) {
       this.editBook = { ...row };  // 复制选中的书籍数据到编辑模型
       this.editDialogVisible = true;  // 显示修改对话框
+      this.coverUpLoadUrl = this.FileUrl + `Upload/Cover/${this.editBook.bookNo}.jpg`;
     },
 
     // 删除操作
@@ -380,6 +463,7 @@ export default {
         bookNo: "",
         cover: "",
       };
+      this.coverUpLoadUrl = "";
       this.addDialogVisible = true;  // 打开添加对话框
     },
 
@@ -414,17 +498,6 @@ export default {
         this.$message.error("编辑失败");
       }
     },
-  },
-  created() {
-    try {
-      request.get("/Category/Tree").then(res => {
-        console.log(res.data);
-        this.categories = res.data;
-      });
-    } catch (error) {
-      this.$message.error("分类加载失败");
-    }
-    this.load();  // 初始化加载数据
   },
 };
 </script>

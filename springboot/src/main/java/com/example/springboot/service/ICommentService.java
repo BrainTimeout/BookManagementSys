@@ -12,4 +12,5 @@ public interface ICommentService {
 
     List<Comment> listByAccount(String account);
 
+    void postComment(Comment comment);
 }

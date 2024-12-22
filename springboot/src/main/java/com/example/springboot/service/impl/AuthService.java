@@ -104,10 +104,18 @@ public class AuthService implements IAuthService {
         }
     }
 
+
+
     @Override
     public void updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         updatePasswordRequest.setPassword(securePass(updatePasswordRequest.getPassword()));
         accountsMapper.updatePassword(updatePasswordRequest);
+    }
+
+    @Override
+    public boolean checkAccounts(String account, String password) {
+        Accounts accounts = accountsMapper.getByAccount(account);
+        return accounts.getPassword().equals(securePass(password));
     }
 
 }

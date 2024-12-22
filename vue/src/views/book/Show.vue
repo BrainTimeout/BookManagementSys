@@ -75,7 +75,7 @@ export default {
       total: 0,
       params: {
         pageNum: 1,
-        pageSize: 6,
+        pageSize: 10,
       },
       filters: {
         name: "",

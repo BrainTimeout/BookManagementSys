@@ -5,43 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="228f936b-cb05-4868-8e56-739000303fdb" name="默认变更列表" comment="">
-      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/BorrowRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/RevertRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/Revert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/RevertProfile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/avatar/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Data/avatar/1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/BorrowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/BorrowController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/BorrowPageRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/BorrowPageRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/Borrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/Borrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/AccountsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/AccountsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/BookMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/BorrowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/BorrowMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/UpdatePasswordRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/controller/request/UpdatePasswordRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/mapper/CommentMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IAuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IBorrowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/IBorrowService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/ICommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/ICommentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/BorrowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/BorrowService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Accounts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Accounts.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Book.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Book.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Borrow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Borrow.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/mapper/UserProfile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/mapper/UserProfile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/BorrowController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/BorrowController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/springboot/service/impl/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Comment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/mapper/Comment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/request/BorrowPageRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/request/BorrowPageRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/entity/Borrow.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/entity/Borrow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/AccountsMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/AccountsMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/BookMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/BookMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/BorrowMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/BorrowMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/request/UpdatePasswordRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/controller/request/UpdatePasswordRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/CommentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/mapper/CommentMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IAuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IAuthService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IBorrowService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/IBorrowService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/AuthService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/BorrowService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/BorrowService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/mapper/Book.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/mapper/Book.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/mapper/Borrow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/mapper/Borrow.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/mapper/UserProfile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/mapper/UserProfile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/CommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/FileService.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/com/example/springboot/service/impl/FileService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +39,8 @@
         <option value="FxmlFile" />
         <option value="Tag Library Descriptor" />
         <option value="Interface" />
-        <option value="Vue Single File Component" />
         <option value="Class" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -127,9 +111,9 @@
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.springboot.service.impl" />
+      <recent name="com.example.springboot.service" />
       <recent name="com.example.springboot.mapper" />
       <recent name="com.example.springboot.entity" />
-      <recent name="com.example.springboot.service" />
       <recent name="com.example.springboot.controller" />
     </key>
   </component>
@@ -195,7 +179,7 @@
       <workItem from="1734677035414" duration="29263000" />
       <workItem from="1734763432395" duration="45772000" />
       <workItem from="1734849787507" duration="516000" />
-      <workItem from="1734852880554" duration="21757000" />
+      <workItem from="1734852880554" duration="38784000" />
     </task>
     <servers />
   </component>

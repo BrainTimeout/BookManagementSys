@@ -96,15 +96,24 @@
     </el-dialog>
 
     <el-dialog title="修改密码" :visible.sync="changePasswordDialogVisible" width="30%">
-      <div>
-        <el-input v-model="newPassword" placeholder="请输入新密码" type="password"></el-input>
-        <el-input v-model="confirmPassword" placeholder="确认新密码" type="password"></el-input>
-      </div>
+      <el-form label-width="100px">
+        <el-form-item label="旧密码">
+          <el-input v-model="oldPassword" placeholder="请输入旧密码" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码">
+          <el-input v-model="newPassword" placeholder="请输入新密码" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="确认新密码">
+          <el-input v-model="confirmPassword" placeholder="确认新密码" type="password"></el-input>
+        </el-form-item>
+      </el-form>
       <span slot="footer" class="dialog-footer">
-      <el-button @click="changePasswordDialogVisible = false">取消</el-button>
-      <el-button type="primary" @click="changePassword">确定</el-button>
-    </span>
+    <el-button @click="changePasswordDialogVisible = false">取消</el-button>
+    <el-button type="primary" @click="changePassword">确定</el-button>
+  </span>
     </el-dialog>
+
+
   </div>
 
 </template>
@@ -117,18 +126,19 @@ export default {
   data() {
     return {
       userProfile: {
-        account:"",
-        username: '',
-        age: '',
-        sex: '',
-        address: '',
-        phone: '',
-        email: '',
-        introduce: '',
+        account: "",
+        username: "",
+        age: "",
+        sex: "",
+        address: "",
+        phone: "",
+        email: "",
+        introduce: "",
       },
       avatarUrl: `${request.defaults.baseURL}/File/Download/Avatar/default.jpg`,
       logo: require("@/assets/images/captcha.png"),
       avatarUploadUrl: ``, // 完整的上传路径
+      oldPassword: "", // 旧密码
       newPassword: "", // 新密码
       confirmPassword: "", // 确认新密码
       dropdownVisible: false,
@@ -138,7 +148,7 @@ export default {
     };
   },
   mounted() {
-    // 从cookie中读取LoginDTO并解析
+    // 从cookie中读取authInfo并解析
     const authInfo = Cookies.get('authInfo');
     if (authInfo) {
       const loginData = JSON.parse(authInfo); // 假设cookie中存储的是JSON字符串
@@ -177,7 +187,7 @@ export default {
     },
     async saveUserInfo() {
       try {
-        const res = await request.put("/UserProfile/Update", this.userProfile);
+        const res = await request.put("/User/UserProfileUpdate", this.userProfile);
         if (res.code === "200") {
           this.$message.success("用户信息已更新！");
         } else {
@@ -201,9 +211,10 @@ export default {
 
         try {
           // 假设后端的密码修改接口为 PUT 请求
-          const res = await request.put("/Auth/UpdatePassword", {
+          const res = await request.put("/User/UpdatePassword", {
             account: this.userProfile.account,
-            password: this.newPassword
+            oldPassword: this.oldPassword, // 传递旧密码
+            password: this.newPassword, // 传递新密码
           });
 
           if (res.code === "200") {

@@ -39,4 +39,9 @@ public class CommentService implements ICommentService {
     public List<Comment> listByAccount(String account) {
         return commentMapper.listByAccount(account);
     }
+
+    @Override
+    public void postComment(Comment comment) {
+        commentMapper.insert(comment);
+    }
 }

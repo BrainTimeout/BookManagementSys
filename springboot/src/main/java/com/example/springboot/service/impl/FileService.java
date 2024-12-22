@@ -52,6 +52,8 @@ public class FileService implements IFileService {
                 return "avatar";  // 上传到头像文件夹
             case "Picture":
                 return "picture";  // 上传到图片文件夹
+            case "Cover":
+                return "cover";  // 上传到封面文件夹
             default:
                 return "others";  // 默认文件夹
         }

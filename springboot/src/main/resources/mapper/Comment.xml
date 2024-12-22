@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springboot.mapper.CommentMapper">
+
     <select id="list" resultType="com.example.springboot.entity.Comment">
         select * from Comment
     </select>
@@ -16,5 +17,20 @@
         select * from Comment
         where account = #{account}
     </select>
+
+    <insert id="insert">
+        insert into Comment(
+            bookNo,
+            account,
+            content,
+            username
+        )
+        values(
+                  #{bookNo},
+                  #{account},
+                  #{content},
+                  #{username}
+              )
+    </insert>
 
 </mapper>
