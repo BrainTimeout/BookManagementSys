@@ -139,9 +139,9 @@ export default {
   },
   mounted() {
     // 从cookie中读取LoginDTO并解析
-    const loginDTO = Cookies.get('loginDTO');
-    if (loginDTO) {
-      const loginData = JSON.parse(loginDTO); // 假设cookie中存储的是JSON字符串
+    const authInfo = Cookies.get('authInfo');
+    if (authInfo) {
+      const loginData = JSON.parse(authInfo); // 假设cookie中存储的是JSON字符串
       this.userProfile = loginData.userProfile || {};
       this.avatarUploadUrl = `${request.defaults.baseURL}/File/Upload/Avatar/${this.userProfile.account}.jpg`;
       this.avatarUrl =  `${request.defaults.baseURL}/File/Download/Avatar/${this.userProfile.account}.jpg`;
@@ -208,7 +208,7 @@ export default {
 
           if (res.code === "200") {
             this.$message.success('密码修改成功');
-            Cookies.remove('loginDTO');
+            Cookies.remove('authInfo');
             await this.$router.push('/login'); // 退出登录，跳转到登录页
           } else {
             this.$message.error(res.msg);
@@ -221,7 +221,7 @@ export default {
       }
     },
     logout() {
-      Cookies.remove('loginDTO');
+      Cookies.remove('authInfo');
       this.$router.push('/login'); // 退出登录，跳转到登录页
     }
   }

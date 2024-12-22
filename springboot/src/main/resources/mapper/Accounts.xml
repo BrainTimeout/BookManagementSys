@@ -52,6 +52,13 @@
         WHERE account = #{account};
     </update>
 
+    <update id="updateBalance">
+        UPDATE Accounts
+        SET
+            balance = balance + #{balance}
+        WHERE account = #{account};
+    </update>
+
     <insert id="insert">
         INSERT INTO Accounts (account, password, usertype)
         VALUES (#{account}, #{password}, #{usertype});

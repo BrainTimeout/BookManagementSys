@@ -12,7 +12,7 @@ public class BorrowPageRequest extends PageRequest{
     private String account;    // 用户账号
     private String bookNo;     // 书籍编号
     private String username;   // 用户名
-    private String bookName;   // 图书名称
+    private String name;   // 图书名称
     private String dueDate;
     private String sortOrder;  // 排序顺序（'ascending' 或 'descending'）
 }

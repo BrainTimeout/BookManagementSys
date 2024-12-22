@@ -6,14 +6,24 @@
         <el-input v-model="borrowForm.bookNo" @blur="fetchBookDetails" placeholder="请输入书籍编号" />
       </el-form-item>
 
+      <el-form-item label="借阅天数" prop="score">
+        <el-input-number
+            v-model="borrowForm.days"
+            :min="0"
+            :max="1000"
+            placeholder="请输入借阅天数"
+            style="width: 100%;"
+        />
+      </el-form-item>
+
       <!-- 书籍名称 -->
       <el-form-item label="书籍名称" prop="name">
         <el-input v-model="borrowForm.name" :disabled="true" placeholder="自动填充" />
       </el-form-item>
 
       <!-- 图书积分 -->
-      <el-form-item label="图书积分" prop="score">
-        <el-input v-model="borrowForm.score" :disabled="true" type="number" placeholder="自动填充" />
+      <el-form-item label="所需积分" prop="score">
+        <el-input :value="calculatedScore" :disabled="true" type="number" placeholder="自动填充" />
       </el-form-item>
 
       <!-- 图书积分 -->
@@ -23,12 +33,12 @@
 
       <!-- 用户账号 -->
       <el-form-item label="用户账号" prop="account" :rules="[{ required: true, message: '请输入用户账号', trigger: 'blur' }]">
-        <el-input v-model="borrowForm.account" placeholder="请输入用户账号" />
+        <el-input v-model="borrowForm.account" @blur="fetchUserDetails" placeholder="请输入用户账号" />
       </el-form-item>
 
       <!-- 用户密码 -->
       <el-form-item label="用户密码" prop="password" :rules="[{ required: true, message: '请输入用户密码', trigger: 'blur' }]">
-        <el-input v-model="borrowForm.password" @blur="fetchUserDetails" placeholder="请输入用户密码" />
+        <el-input v-model="borrowForm.password"  placeholder="请输入用户密码" />
       </el-form-item>
 
       <!-- 用户名 -->
@@ -65,6 +75,7 @@ export default {
       borrowForm: {
         name: "",
         bookNo: "",
+        days: 1,
         score: null,
         nums:"",
         account: "",
@@ -74,6 +85,12 @@ export default {
         username: ""
       }
     };
+  },
+  computed: {
+    // 计算所需积分
+    calculatedScore() {
+      return this.borrowForm.score * this.borrowForm.days;
+    }
   },
   methods: {
     // 根据书籍编号获取书籍信息
@@ -102,7 +119,7 @@ export default {
       if (!this.borrowForm.account) return;
 
       try {
-        const res = await request.post(`Auth/GetAuthInfo`,{ account:this.borrowForm.account,password:this.borrowForm.password });
+        const res = await request.get(`User/GetAuthInfo/${this.borrowForm.account}`);
         if (res.code === "200") {
           this.borrowForm.username = res.data.userProfile.username || "";
           this.borrowForm.balance = res.data.balance || "";
@@ -125,7 +142,9 @@ export default {
         // 构建借阅请求数据
         const borrowRequest = {
           bookNo: this.borrowForm.bookNo,
-          account: this.borrowForm.account
+          account: this.borrowForm.account,
+          password: this.borrowForm.password,
+          days:this.borrowForm.days
         };
 
         // 发送借阅请求

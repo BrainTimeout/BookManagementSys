@@ -53,14 +53,24 @@ const routes = [
         component:() => import('../views/book/List.vue')
       },
       {
+        path:'/borrowBook',
+        name:'/borrowBook',
+        component:() => import('../views/borrow/BorrowBook')
+      },
+      {
+        path:'/revertBook',
+        name:'/revertBook',
+        component:() => import('../views/borrow/RevertBook')
+      },
+      {
         path:'/borrowList',
         name:'borrowList',
         component:() => import('../views/borrow/BorrowList.vue')
       },
       {
-        path:'/borrowBook',
-        name:'/borrowBook',
-        component:() => import('../views/borrow/BorrowBook')
+        path:'/revertList',
+        name:'revertList',
+        component:() => import('../views/borrow/RevertList.vue')
       },
       {
         path: '/userManage',

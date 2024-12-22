@@ -2,9 +2,11 @@ package com.example.springboot.controller;
 
 import com.example.springboot.comon.Result;
 import com.example.springboot.controller.request.BookPageRequest;
+import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.entity.Book;
 import com.example.springboot.entity.BorrowProfile;
 import com.example.springboot.entity.Comment;
+import com.example.springboot.service.IAuthService;
 import com.example.springboot.service.IBookService;
 import com.example.springboot.service.IBorrowService;
 import com.example.springboot.service.ICommentService;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     IBorrowService borrowService;
+
+    @Autowired
+    IAuthService authService;
 
     @Autowired
     ICommentService commentService;
@@ -51,6 +56,11 @@ public class UserController {
     public Result commentListByBookNo(@PathVariable String bookNo){
         List<Comment> comments = commentService.listByBookNo(bookNo);
         return Result.success(comments);
+    }
+
+    @GetMapping("/GetAuthInfo/{account}")
+    public Result getAuthInfo(@PathVariable String account){
+        return Result.success(authService.getAuthInfo(account));
     }
 
 }

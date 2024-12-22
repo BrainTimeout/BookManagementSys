@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springboot.mapper.UserProfileMapper">
     <select id="list" parameterType="long" resultType="com.example.springboot.entity.UserProfile">
-        select * from UserProfile
+        select * from userprofile
     </select>
 
     <select id="listByCondition" parameterType="long" resultType="com.example.springboot.entity.UserProfile">
-        SELECT * FROM UserProfile
+        SELECT * FROM userprofile
         <where>
             <if test="account != null and account != ''">
                 AND account LIKE CONCAT('%', #{account}, '%')
@@ -38,12 +38,12 @@
     </select>
 
     <select id = "getByAccount" resultType="com.example.springboot.entity.UserProfile">
-        SELECT * FROM UserProfile
+        SELECT * FROM userprofile
         WHERE account = #{account}
     </select>
 
     <update id="update">
-        UPDATE UserProfile
+        UPDATE userprofile
         SET
             username = #{username},
             age = #{age},

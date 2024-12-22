@@ -31,20 +31,17 @@ public class AuthService implements IAuthService {
     private static final String DEFAULT_PASS = "123";
     private static final String PASS_SALT = "npu";
 
-    private String securePass(String password){
+    public static String securePass(String password){
         return SecureUtil.md5(password+PASS_SALT);
     }
 
 
     @Override
-    public AuthInfo getAuthInfo(LoginRequest loginRequest) {
+    public AuthInfo getAuthInfo(String account) {
         AuthInfo authInfo = new AuthInfo();
-        loginRequest.setAccount(loginRequest.getAccount());
-        // 加码
-        loginRequest.setPassword(securePass(loginRequest.getPassword()));
-        Accounts accounts = accountsMapper.getByAccountAndPassword(loginRequest);
+        Accounts accounts = accountsMapper.getByAccount(account);
         if(accounts == null){
-            throw new ServiceException("用户名或密码错误");
+            throw new ServiceException("用户不存在");
         }
         authInfo.setBalance(accounts.getBalance());
         authInfo.setUserProfile(userProfileMapper.getByAccount(accounts.getAccount()));

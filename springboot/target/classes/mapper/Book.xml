@@ -76,6 +76,12 @@
         WHERE id = #{id};
     </update>
 
+    <update id="revertOneBook">
+        UPDATE Book
+        SET nums = nums+1
+        WHERE bookNo = #{bookNo};
+    </update>
+
     <insert id="insert">
         INSERT INTO Book (
         name,

@@ -20,5 +20,7 @@ public interface BookMapper {
 
     void update(Book book);
 
+    void revertOneBook(String bookNo);
+
     void deleteById(Integer id);
 }

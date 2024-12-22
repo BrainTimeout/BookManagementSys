@@ -22,6 +22,8 @@ public interface AccountsMapper {
 
     void update(Accounts accounts);
 
+    void updateBalance(Accounts accounts);
+
     void updatePassword(UpdatePasswordRequest updatePasswordRequest);
 
     void delete(String account);

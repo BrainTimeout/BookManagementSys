@@ -14,5 +14,5 @@ public interface IAuthService {
 
     void updatePassword(UpdatePasswordRequest updatePasswordRequest);
 
-    AuthInfo getAuthInfo(LoginRequest loginRequest);
+    AuthInfo getAuthInfo(String account);
 }

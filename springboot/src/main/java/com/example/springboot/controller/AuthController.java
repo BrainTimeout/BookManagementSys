@@ -30,11 +30,6 @@ public class AuthController {
         return Result.success(authService.login(loginRequest));
     }
 
-    @PostMapping("/GetAuthInfo")
-    public Result getAuthInfo(@RequestBody LoginRequest loginRequest){
-        return Result.success(authService.getAuthInfo(loginRequest));
-    }
-
 
     @PutMapping("/UpdatePassword")
     public Result updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest){

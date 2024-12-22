@@ -12,43 +12,47 @@
         </el-menu-item>
         <el-submenu index="1">
           <template #title>
-            <i class="mdi mdi-book-open-page-variant"></i>
+            <i class="mdi mdi-library"></i>
             <span>书籍管理</span>
           </template>
           <el-menu-item index="/bookList">
-            <i class="mdi mdi-bookmark-outline"></i>
+            <i class="mdi mdi-book-open"></i>
             <span>书籍管理</span>
           </el-menu-item>
           <el-menu-item index="/categoryList">
-            <i class="mdi mdi-bookmark-outline"></i>
+            <i class="mdi mdi-tag"></i>
             <span>书籍分类管理</span>
           </el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template #title>
-            <i class="mdi mdi-book-open-page-variant"></i>
+            <i class="mdi mdi-book-account"></i>
             <span>借阅管理</span>
           </template>
           <el-menu-item index="/borrowBook">
-            <i class="mdi mdi-bookmark-outline"></i>
+            <i class="mdi mdi-bookmark-plus"></i>
             <span>借阅书籍</span>
           </el-menu-item>
-          <el-menu-item index="/returnBook">
-            <i class="mdi mdi-bookmark-outline"></i>
+          <el-menu-item index="/revertBook">
+            <i class="mdi mdi-bookmark-minus"></i>
             <span>归还书籍</span>
           </el-menu-item>
           <el-menu-item index="/borrowList">
-            <i class="mdi mdi-bookmark-outline"></i>
+            <i class="mdi mdi-format-list-bulleted"></i>
             <span>借阅列表</span>
+          </el-menu-item>
+          <el-menu-item index="/revertList">
+            <i class="mdi mdi-format-list-bulleted"></i>
+            <span>归还列表</span>
           </el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template #title>
-            <i class="mdi mdi-account-settings"></i>
+            <i class="mdi mdi-account-group"></i>
             <span>用户管理</span>
           </template>
           <el-menu-item index="/userManage">
-            <i class="mdi mdi-account-edit"></i>
+            <i class="mdi mdi-account-settings"></i>
             <span>用户信息管理</span>
           </el-menu-item>
           <el-menu-item index="/accountManage">
@@ -168,7 +172,7 @@ export default {
         introduce: '',
       },
       avatarUrl: `${request.defaults.baseURL}/File/Download/Avatar/default.jpg`,
-      logo: require("@/assets/images/captcha.png"),
+      logo: require("@/assets/images/logo.png"),
       avatarUploadUrl: ``, // 完整的上传路径
       newPassword: "", // 新密码
       confirmPassword: "", // 确认新密码
@@ -180,9 +184,9 @@ export default {
   },
   mounted() {
     // 从cookie中读取LoginDTO并解析
-    const loginDTO = Cookies.get('loginDTO');
-    if (loginDTO) {
-      const loginData = JSON.parse(loginDTO); // 假设cookie中存储的是JSON字符串
+    const authInfo = Cookies.get('authInfo');
+    if (authInfo) {
+      const loginData = JSON.parse(authInfo); // 假设cookie中存储的是JSON字符串
       this.userProfile = loginData.userProfile || {};
       this.avatarUploadUrl = `${request.defaults.baseURL}/File/Upload/Avatar/${this.userProfile.account}.jpg`;
       this.avatarUrl =  `${request.defaults.baseURL}/File/Download/Avatar/${this.userProfile.account}.jpg`;
@@ -249,7 +253,7 @@ export default {
 
           if (res.code === "200") {
             this.$message.success('密码修改成功');
-            Cookies.remove('loginDTO');
+            Cookies.remove('authInfo');
             await this.$router.push('/login'); // 退出登录，跳转到登录页
           } else {
             this.$message.error(res.msg);
@@ -262,7 +266,7 @@ export default {
       }
     },
     logout() {
-      Cookies.remove('loginDTO');
+      Cookies.remove('authInfo');
       this.$router.push('/login'); // 退出登录，跳转到登录页
     }
   }
