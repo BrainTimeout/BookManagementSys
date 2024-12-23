@@ -6,10 +6,6 @@
         <span class="sidebar-title">图书馆管理系统</span>
       </div>
       <el-menu :default-active="$route.path" :default-openeds="['1','2','3']" router class="el-menu-demo">
-        <el-menu-item index="/">
-          <i class="mdi mdi-home"></i>
-          <span>首页</span>
-        </el-menu-item>
         <el-menu-item index="/bookShow">
           <i class="mdi mdi-home"></i>
           <span>书籍阅览</span>
@@ -27,6 +23,7 @@
           <span :class="sidebarVisible ? 'mdi mdi-menu-open' : 'mdi mdi-menu'"></span>
           <span class="button-text">菜单</span>
         </button>
+        <div class="balance-info">当前余额：{{ balance }}</div>  <!-- 显示当前余额 -->
         <div class="user-info" @click="toggleDropdown">
           <img :src="avatarUrl" alt="Avatar" class="avatar" />
           <span class="username">{{ userProfile.username }}</span>
@@ -135,6 +132,7 @@ export default {
         email: "",
         introduce: "",
       },
+      balance:"",
       avatarUrl: `${request.defaults.baseURL}/File/Download/Avatar/default.jpg`,
       logo: require("@/assets/images/captcha.png"),
       avatarUploadUrl: ``, // 完整的上传路径
@@ -153,6 +151,7 @@ export default {
     if (authInfo) {
       const loginData = JSON.parse(authInfo); // 假设cookie中存储的是JSON字符串
       this.userProfile = loginData.userProfile || {};
+      this.balance = loginData.balance || {};
       this.avatarUploadUrl = `${request.defaults.baseURL}/File/Upload/Avatar/${this.userProfile.account}.jpg`;
       this.avatarUrl =  `${request.defaults.baseURL}/File/Download/Avatar/${this.userProfile.account}.jpg`;
     }
@@ -240,6 +239,19 @@ export default {
 </script>
 
 <style scoped>
+.balance-info {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-left: auto;
+  margin-right: 20px;
+  display: flex;
+  justify-content: flex-end; /* 使其靠右对齐 */
+  align-items: center; /* 垂直居中 */
+  width: 100%; /* 确保它占满整个父容器宽度 */
+}
+
+
 .layout {
   display: flex;
   height: 100vh;

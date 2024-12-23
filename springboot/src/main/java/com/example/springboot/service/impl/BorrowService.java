@@ -38,7 +38,12 @@ public class BorrowService implements IBorrowService {
     private Integer Punish = 1;
 
     @Override
-    public List<BorrowProfile> list(){ return borrowMapper.list();}
+    public List<Borrow> list(){ return borrowMapper.list();}
+
+    @Override
+    public List<Revert> revertList() {
+        return borrowMapper.revertList();
+    }
 
     @Override
     public List<BorrowProfile> listByAccount(String account) {

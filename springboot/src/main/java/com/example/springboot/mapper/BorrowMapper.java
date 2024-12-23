@@ -12,7 +12,9 @@ import java.util.List;
 
 @Mapper
 public interface BorrowMapper {
-    List<BorrowProfile> list();
+    List<Borrow> list();
+
+    List<Revert> revertList();
 
     List<BorrowProfile> listByAccount(String account);
 

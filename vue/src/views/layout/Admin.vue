@@ -6,7 +6,7 @@
         <span class="sidebar-title">图书馆管理系统</span>
       </div>
       <el-menu :default-active="$route.path" :default-openeds="['1','2','3']" router class="el-menu-demo">
-        <el-menu-item index="/">
+        <el-menu-item index="/home">
           <i class="mdi mdi-home"></i>
           <span>首页</span>
         </el-menu-item>

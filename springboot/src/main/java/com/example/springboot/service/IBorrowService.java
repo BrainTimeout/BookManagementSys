@@ -5,13 +5,16 @@ import com.example.springboot.controller.request.PageRequest;
 import com.example.springboot.controller.request.RevertRequest;
 import com.example.springboot.entity.Borrow;
 import com.example.springboot.entity.BorrowProfile;
+import com.example.springboot.entity.Revert;
 import com.example.springboot.entity.RevertProfile;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
 public interface IBorrowService {
-    List<BorrowProfile> list();
+    List<Borrow> list();
+
+    List<Revert> revertList();
 
     List<BorrowProfile> listByAccount(String account);
 

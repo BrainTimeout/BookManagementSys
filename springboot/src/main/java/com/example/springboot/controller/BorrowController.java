@@ -6,6 +6,7 @@ import com.example.springboot.controller.request.BorrowRequest;
 import com.example.springboot.controller.request.RevertRequest;
 import com.example.springboot.entity.Borrow;
 import com.example.springboot.entity.BorrowProfile;
+import com.example.springboot.entity.Revert;
 import com.example.springboot.service.IBorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,14 @@ public class BorrowController {
 
     @GetMapping("/List")
     public Result list(){
-        List<BorrowProfile> borrowList= borrowService.list();
+        List<Borrow> borrowList= borrowService.list();
         return Result.success(borrowList);
+    }
+
+    @GetMapping("/RevertList")
+    public Result revertList(){
+        List<Revert> revertList= borrowService.revertList();
+        return Result.success(revertList);
     }
 
     @GetMapping("/Page")

@@ -3,10 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springboot.mapper.BorrowMapper">
-    <select id="list" resultType="com.example.springboot.entity.BorrowProfile">
-        select * from BorrowProfile
+    <select id="list" resultType="com.example.springboot.entity.Borrow">
+        select * from Borrow
     </select>
 
+    <select id="revertList" resultType="com.example.springboot.entity.Revert">
+        select * from Revert
+    </select>
 
     <select id="listByAccount" resultType="com.example.springboot.entity.BorrowProfile">
         select * from BorrowProfile

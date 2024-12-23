@@ -16,23 +16,24 @@ const routes = [
   {
     path: '/user',
     name: 'user',
+    redirect: '/bookShow',
     component: () => import('../views/layout/User.vue'),
     children: [
       {
         path:'/bookShow',
         name:'bookShow',
-        component:() => import('../views/book/Show.vue')
+        component:() => import('../views/user/Show.vue')
       },
       {
         path: "/bookDetail/:id",
         name: "bookDetail",
-        component:() => import('../views/book/Detail.vue'),
+        component:() => import('../views/user/Detail.vue'),
         props: true,
       },
       {
         path: "/currentBorrow/:account",
         name: "currentBorrow",
-        component:() => import('../views/book/CurrentBorrow.vue'),
+        component:() => import('../views/user/CurrentBorrow.vue'),
         props: true,
       },
     ]
@@ -40,17 +41,23 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
+    redirect: '/home',
     component: () => import('../views/layout/Admin.vue'),
     children: [
       {
+        path:'/home',
+        name:'home',
+        component:() => import('../views/Home')
+      },
+      {
         path:'/categoryList',
         name:'categoryList',
-        component:() => import('../views/category/List.vue')
+        component:() => import('../views/category/CategoryManage.vue')
       },
       {
         path:'/bookList',
         name:'bookList',
-        component:() => import('../views/book/List.vue')
+        component:() => import('../views/book/BookManage.vue')
       },
       {
         path:'/borrowBook',
@@ -75,17 +82,17 @@ const routes = [
       {
         path: '/userManage',
         name: 'userManage',
-        component: () => import('../views/user/UserProfileManage.vue'),
+        component: () => import('../views/userManage/UserProfileManage.vue'),
       },
       {
         path: '/userJoin',
         name: 'userJoin',
-        component: () => import('../views/user/UserJoin.vue'),
+        component: () => import('../views/userManage/UserJoin.vue'),
       },
       {
         path: '/accountManage',
         name: 'accountManage',
-        component: () => import('../views/user/AccountManage'),
+        component: () => import('../views/userManage/AccountManage'),
       },
     ]
   },
