@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.BookMapper">
+    <select id="list" resultType="com.example.springboot.entity.Book">
+        select * from Book
+    </select>
+
+    <select id="listByCondition" resultType="com.example.springboot.entity.Book">
+        SELECT * FROM Book
+        <where>
+            <!-- 查询 name -->
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <!-- 查询 author -->
+            <if test="author != null and author != ''">
+                AND author LIKE CONCAT('%', #{author}, '%')
+            </if>
+            <!-- 查询 publisher -->
+            <if test="publisher != null and publisher != ''">
+                AND publisher LIKE CONCAT('%', #{publisher}, '%')
+            </if>
+            <!-- 查询 category -->
+            <if test="category != null and category != ''">
+                AND category LIKE CONCAT('%', #{category}, '%')
+            </if>
+            <!-- 查询 score -->
+            <if test="score != null and score != ''">
+                AND score LIKE CONCAT('%', #{score}, '%')
+            </if>
+            <if test="detail != null and detail != ''">
+                AND (publishDate LIKE CONCAT('%', #{detail}, '%')
+                OR bookNo LIKE CONCAT('%', #{detail}, '%')
+                OR cover LIKE CONCAT('%', #{detail}, '%'))
+            </if>
+        </where>
+        <!-- 排序条件 -->
+        <if test="sortOrder == 'ascending'">
+            ORDER BY id ASC
+        </if>
+        <if test="sortOrder == 'descending'">
+            ORDER BY id DESC
+        </if>
+    </select>
+
+    <select id = "getById" resultType="com.example.springboot.entity.Book">
+        SELECT * FROM Book
+        WHERE id = #{id}
+    </select>
+
+    <select id = "getByBookNo" resultType="com.example.springboot.entity.Book">
+        SELECT * FROM Book
+        WHERE bookNo = #{bookNo}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM Book
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE Book
+        SET
+        name = #{name},
+        description = #{description},
+        publishDate = #{publishDate},
+        author = #{author},
+        publisher = #{publisher},
+        category = #{category},
+        bookNo = #{bookNo},
+        score = #{score},
+        cover = #{cover},
+        nums = #{nums}
+        WHERE id = #{id};
+    </update>
+
+    <update id="revertOneBook">
+        UPDATE Book
+        SET nums = nums+1
+        WHERE bookNo = #{bookNo};
+    </update>
+
+    <insert id="insert">
+        INSERT INTO Book (
+        name,
+        description,
+        publishDate,
+        author,
+        publisher,
+        category,
+        bookNo,
+        score,
+        cover,
+        nums
+        )
+        VALUES (
+        #{name},
+        #{description},
+        #{publishDate},
+        #{author},
+        #{publisher},
+        #{category},
+        #{bookNo},
+        #{score},
+        #{cover},
+        #{nums}
+        )
+    </insert>
+</mapper>

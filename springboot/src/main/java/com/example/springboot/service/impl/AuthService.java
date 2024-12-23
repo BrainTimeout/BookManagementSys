@@ -1,17 +1,18 @@
 package com.example.springboot.service.impl;
 
-import com.example.springboot.controller.dto.LoginDTO;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
+import com.example.springboot.controller.dto.AuthInfo;
 import com.example.springboot.controller.request.JoinRequest;
 import com.example.springboot.controller.request.LoginRequest;
+import com.example.springboot.controller.request.UpdatePasswordRequest;
 import com.example.springboot.entity.Accounts;
+import com.example.springboot.entity.UserProfile;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.AccountsMapper;
 import com.example.springboot.mapper.UserProfileMapper;
-import com.example.springboot.service.IAccountsService;
 import com.example.springboot.service.IAuthService;
-import com.example.springboot.service.IUserProfileService;
-import org.apache.ibatis.javassist.expr.NewArray;
-import org.springframework.beans.BeanUtils;
+import com.example.springboot.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,31 @@ public class AuthService implements IAuthService {
     @Autowired
     UserProfileMapper userProfileMapper;
 
+    //默认密码
+    private static final String DEFAULT_PASS = "123";
+    private static final String PASS_SALT = "npu";
+
+    public static String securePass(String password){
+        return SecureUtil.md5(password+PASS_SALT);
+    }
+
+
     @Override
-    public LoginDTO login(LoginRequest loginRequest){
+    public AuthInfo getAuthInfo(String account) {
+        AuthInfo authInfo = new AuthInfo();
+        Accounts accounts = accountsMapper.getByAccount(account);
+        if(accounts == null){
+            throw new ServiceException("用户不存在");
+        }
+        authInfo.setBalance(accounts.getBalance());
+        authInfo.setUserProfile(userProfileMapper.getByAccount(accounts.getAccount()));
+        return authInfo;
+    }
+
+    @Override
+    public AuthInfo login(LoginRequest loginRequest){
+        // 加码
+        loginRequest.setPassword(securePass(loginRequest.getPassword()));
         Accounts accounts = accountsMapper.getByAccountAndPassword(loginRequest);
         if(accounts == null){
             throw new ServiceException("用户名或密码错误");
@@ -43,19 +67,55 @@ public class AuthService implements IAuthService {
                 throw new ServiceException("您不是管理员");
             }
         }
-        LoginDTO loginDTO = new LoginDTO();
 
-        BeanUtils.copyProperties(accounts,loginDTO);
+        String token;
+        if(accounts.getUsertype().equals("admin")){
+            token = TokenUtils.genToken(accounts.getAccount(), accounts.getPassword());
+        }else{
+            token = null;
+        }
 
-        return loginDTO;
+        AuthInfo authInfo = new AuthInfo();
+
+        authInfo.setToken(token);
+        authInfo.setUsertype(accounts.getUsertype());
+        authInfo.setBalance(accounts.getBalance());
+
+        UserProfile userProfile = userProfileMapper.getByAccount(accounts.getAccount());
+
+        authInfo.setUserProfile(userProfile);
+
+        return authInfo;
     }
 
     @Override
     public void join(JoinRequest joinRequest){
-        Accounts accounts = joinRequest.getAccounts();
-        Date nowTime = new Date();
-        accounts.setBanuntil(nowTime);
-        accountsMapper.insert(accounts);
-        userProfileMapper.update(joinRequest.getUserProfile());
+         try {
+             Accounts accounts = joinRequest.getAccounts();
+             if (StrUtil.isBlank(accounts.getPassword())) {
+                 accounts.setPassword(DEFAULT_PASS);
+             }
+             // 加密
+             accounts.setPassword(securePass(accounts.getPassword()));
+             accountsMapper.insert(accounts);
+             userProfileMapper.update(joinRequest.getUserProfile());
+         }catch(Exception e){
+             throw new ServiceException("该账号已存在");
+        }
     }
+
+
+
+    @Override
+    public void updatePassword(UpdatePasswordRequest updatePasswordRequest) {
+        updatePasswordRequest.setPassword(securePass(updatePasswordRequest.getPassword()));
+        accountsMapper.updatePassword(updatePasswordRequest);
+    }
+
+    @Override
+    public boolean checkAccounts(String account, String password) {
+        Accounts accounts = accountsMapper.getByAccount(account);
+        return accounts.getPassword().equals(securePass(password));
+    }
+
 }

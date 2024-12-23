@@ -24,7 +24,8 @@ mybatis:
 
 # 配置文件上传路径
 file:
-  upload-dir: C:/Users/lenovo/Desktop/BookManagementSys/Data/userfile
+  fileDir: C:/Users/lenovo/Desktop/BookManagementSys/Data
+
 
 
 

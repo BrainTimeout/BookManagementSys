@@ -30,19 +30,38 @@
         WHERE account = #{account} and password = #{password}
     </select>
 
+    <select id="getByAccount" resultType="com.example.springboot.entity.Accounts">
+        SELECT * FROM Accounts
+        WHERE account = #{account}
+    </select>
+
     <update id="update">
         UPDATE Accounts
         SET
             account = #{account},
-            password = #{password},
             usertype = #{usertype},
-            banuntil = #{banuntil}
+            banuntil = #{banuntil},
+            balance = #{balance}
+        WHERE account = #{account};
+    </update>
+
+    <update id="updatePassword">
+        UPDATE Accounts
+        SET
+            password = #{password}
+        WHERE account = #{account};
+    </update>
+
+    <update id="updateBalance">
+        UPDATE Accounts
+        SET
+            balance = balance + #{balance}
         WHERE account = #{account};
     </update>
 
     <insert id="insert">
-        INSERT INTO Accounts (account, password, usertype, banuntil)
-        VALUES (#{account}, #{password}, #{usertype}, #{banuntil});
+        INSERT INTO Accounts (account, password, usertype)
+        VALUES (#{account}, #{password}, #{usertype});
     </insert>
 
     <delete id="delete">
