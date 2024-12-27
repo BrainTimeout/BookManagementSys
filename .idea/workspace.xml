@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="228f936b-cb05-4868-8e56-739000303fdb" name="默认变更列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/avatar/test.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Data/avatar/test.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataBase/bookmanagementsys.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +97,7 @@
       <recent name="com.example.springboot.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.未命名">
+  <component name="RunManager" selected="npm.serve">
     <configuration name="未命名" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="springboot" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.springboot.SpringbootApplication" />
@@ -156,6 +152,11 @@
       <workItem from="1734933168767" duration="8257000" />
       <workItem from="1734950067481" duration="796000" />
       <workItem from="1734951946596" duration="1259000" />
+      <workItem from="1735045592727" duration="12000" />
+      <workItem from="1735225718669" duration="175000" />
+      <workItem from="1735226708337" duration="106000" />
+      <workItem from="1735292847459" duration="266000" />
+      <workItem from="1735295457730" duration="8000" />
     </task>
     <servers />
   </component>
