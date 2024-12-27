@@ -1,1 +1,1 @@
-![SQLER](.\images\SQLER.jpg)
+![SQLER](images/SQLER.jpg)
