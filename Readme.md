@@ -1,6 +1,6 @@
 # 图书管理系统 (Library Management System) 📚
 
-这是一个基于 Spring Boot 和 Vue.js 开发的图书管理系统。它包括了前端的 Vue.js 项目，后端的 Spring Boot 项目，以及数据库设置。
+这是一个基于 Spring Boot 和 Vue.js 开发的图书管理系统。它包括了前端的 Vue.js 项目，后端的 Spring Boot 项目，以及MYSQL数据库。
 
 ## 项目结构 📂
 
@@ -100,55 +100,6 @@ BookManagementSys
 - Maven
 - MySQL 数据库
 
-## 前端项目设置 ⚙️
-
-### 安装依赖 📥
-
-在 `vue/` 目录下，运行以下命令安装项目依赖：
-
-```bash
-cd vue
-npm install
-```
-
-### 启动开发服务器 🚀
-
-在 `vue/` 目录下，运行以下命令启动开发服务器：
-
-```
-bash
-
-
-复制代码
-npm run serve
-```
-
-开发服务器启动后，可以在浏览器中访问 http://localhost:8081查看前端应用。
-
-## 后端项目设置 ⚙️
-
-### 安装依赖 📥
-
-在 `springboot/` 目录下，运行以下命令安装项目依赖：
-
-```
-bash复制代码cd springboot
-mvn clean install
-```
-
-### 启动后端服务 🚀
-
-在 `springboot/` 目录下，运行以下命令启动后端服务：
-
-```
-bash
-
-复制代码
-mvn spring-boot:run
-```
-
-后端服务启动后，可以在浏览器中访问 http://localhost:8089 查看后端 API 接口。
-
 ## 数据库设置 🗄️
 
 ### 导入数据库 🛠️
@@ -158,25 +109,74 @@ mvn spring-boot:run
 
 ### 配置数据库连接 🔑
 
-在 `BookManagementSys\springboot\src\main\resources\application.yml` 中，修改数据库连接信息：
+在 项目`\springboot`目录下的`\src\main\resources\application.yml` 中，修改数据库连接信息：
 
 ```
 Spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bookmanagementsys?serverTimezone=GMT%2b8
-    username: root
-    password: #你自己的数据库密码
+    url: jdbc:mysql://#数据库地址和端口/bookmanagementsys?serverTimezone=GMT%2b8
+    username: #数据库用户名
+    password: #数据库密码
 ```
 
-确保数据库已启动，并且配置文件中的用户名、密码等信息正确。
+在启动后端项目前须确保数据库已启动，并且配置文件中的数据库地址和端口、用户名、密码等信息正确。
+
+在该文件下还有一段代码
+
+```
+file:
+  fileDir: # 静态文件路径
+```
+
+指定一个地址作为静态文件如图片、视频的存储地址。参考项目文件`\Data`目录下的文件结构，同时，该目录中保存了初始化导入后数据库中的书籍封面、用户头像。
+
+## 后端项目设置 ⚙️
+
+### 安装依赖 📥
+
+在 `springboot/` 目录下，运行以下命令安装项目依赖：
+
+```
+mvn clean install
+```
+
+### 启动后端服务 🚀
+
+在 `springboot/` 目录下，运行以下命令启动后端服务：
+
+```
+mvn spring-boot:run
+```
+
+后端服务启动后，可以在浏览器中访问 http://localhost:9090 查看后端 API 接口。
+
+## 前端项目设置 ⚙️
+
+### 安装依赖 📥
+
+在 `vue/` 目录下，运行以下命令安装项目依赖：
+
+```bash
+npm install
+```
+
+### 启动前端服务 🚀
+
+在 `vue/` 目录下，运行以下命令启动前端服务：
+
+```
+npm run serve
+```
+
+前端服务启动后，可以在浏览器中访问 http://localhost:8080 进入登录界面。
 
 ## 使用说明 📜
 
 1. 启动 MySQL 数据库，并创建 `BookmanagementSys` 数据库。
 2. 启动后端服务：使用 Maven 启动 Spring Boot 后端。
 3. 启动前端服务：使用 npm 启动 Vue 前端。
-4. 打开浏览器，访问前端应用，进行图书管理系统的操作。（注：先访问`http://localhost:8080/login`进行用户登录，账户密码均为`root`)
+4. 打开浏览器，访问前端应用，进行图书管理系统的操作。（注：先访问`http://localhost:8080`进行用户登录，数据库中存在一位账户密码均为`root`的用户，且该用户权限为管理员)
 
 ## 注意事项 ⚠️
 

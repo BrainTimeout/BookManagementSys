@@ -1,5 +1,5 @@
 server:
-  port: 8089
+  port: 9090
 
 Spring:
   datasource:
@@ -24,7 +24,7 @@ mybatis:
 
 # 配置文件上传路径
 file:
-  fileDir: C:/Users/lenovo/Desktop/BookManagementSys/Data
+  fileDir: D:\Projects\BookManagementSys\Data
 
 
 
