@@ -1,18 +1,5 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : database
- Source Server Type    : MySQL
- Source Server Version : 80040 (8.0.40)
- Source Host           : localhost:3306
- Source Schema         : bookmanagementsys
-
- Target Server Type    : MySQL
- Target Server Version : 80040 (8.0.40)
- File Encoding         : 65001
-
- Date: 23/12/2024 18:36:56
-*/
+CREATE DATABASE BookManagementSys;
+USE BookManagementSys;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
