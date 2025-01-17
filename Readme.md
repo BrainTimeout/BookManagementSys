@@ -105,7 +105,7 @@ BookManagementSys
 ### 导入数据库 🛠️
 
 1. 在 `sql/` 目录下找到 `bookmanagementsys.sql` 文件。
-2. 使用数据库管理工具（如 MySQL Workbench）导入该文件，创建名为 `BookmanagementSys` 的数据库。
+2. 使用数据库管理工具（推荐使用Navicat导入，在使用MySQL控制台导入时可能由于控制台不支持UTF8MB4而失败）导入该文件，创建名为 `BookmanagementSys` 的数据库。
 
 ### 配置数据库连接 🔑
 
