@@ -41,6 +41,47 @@ INSERT INTO `accounts` VALUES ('root', 'b0317912fbf936a45e27d33f0b8d085f', 'admi
 INSERT INTO `accounts` VALUES ('tangxiaotian', '83dfdeb4cfc051c0753caea24a758a76', 'user', '2024-12-23 14:41:05', 90);
 
 -- ----------------------------
+-- Table structure for category
+-- ----------------------------
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '名称',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+  `pid` int NULL DEFAULT NULL COMMENT '父级id',
+  `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `name`(`name` ASC) USING BTREE,
+  INDEX `pid_index`(`pid` ASC) USING BTREE,
+  CONSTRAINT `pid_index` FOREIGN KEY (`pid`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2157 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES (2131, '计算机科学与技术', '计算机领域', NULL, '2024-12-23 02:28:25', '2024-12-23 02:29:17');
+INSERT INTO `category` VALUES (2132, '计算机基础', '计算机基础知识', 2131, '2024-12-23 02:29:24', '2024-12-23 02:29:24');
+INSERT INTO `category` VALUES (2133, '人工智能', '人工智能相关书籍', 2131, '2024-12-23 02:29:43', '2024-12-23 02:29:43');
+INSERT INTO `category` VALUES (2134, '计算机技术', '计算机相关技术', 2131, '2024-12-23 02:30:16', '2024-12-23 02:30:16');
+INSERT INTO `category` VALUES (2135, '文学', '包括各种文学作品和小说', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
+INSERT INTO `category` VALUES (2136, '历史', '历史书籍和历史事件的分析', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
+INSERT INTO `category` VALUES (2137, '心理学', '研究心理学的书籍', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
+INSERT INTO `category` VALUES (2138, '自我提升', '关于个人成长和自我发展的书籍', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
+INSERT INTO `category` VALUES (2139, '艺术', '关于艺术的理论和实践', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
+INSERT INTO `category` VALUES (2145, '小说', '各种类型的小说', 2135, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
+INSERT INTO `category` VALUES (2146, '诗歌', '诗歌类文学作品', 2135, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
+INSERT INTO `category` VALUES (2147, '现代历史', '20世纪及以后的历史书籍', 2136, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
+INSERT INTO `category` VALUES (2148, '古代历史', '关于古代文明的书籍', 2136, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
+INSERT INTO `category` VALUES (2149, '社会心理学', '心理学与社会行为交叉的书籍', 2137, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
+INSERT INTO `category` VALUES (2150, '个人成长', '提升个人生活质量的书籍', 2138, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
+INSERT INTO `category` VALUES (2151, '绘画艺术', '关于绘画技巧和艺术史的书籍', 2139, '2024-12-23 02:39:22', '2024-12-23 02:52:05');
+INSERT INTO `category` VALUES (2152, '工程技术', '工程类书籍', NULL, '2024-12-23 15:04:35', '2024-12-23 15:04:35');
+INSERT INTO `category` VALUES (2153, '航空航天技术', '航空航天类书籍', 2152, '2024-12-23 15:05:05', '2024-12-23 15:05:05');
+INSERT INTO `category` VALUES (2154, '传记', '人物传记', 2135, '2024-12-23 16:39:55', '2024-12-23 16:39:55');
+INSERT INTO `category` VALUES (2155, 'TEST', '测试分类', NULL, '2024-12-23 16:40:28', '2024-12-23 16:40:28');
+
+-- ----------------------------
 -- Table structure for book
 -- ----------------------------
 DROP TABLE IF EXISTS `book`;
@@ -119,47 +160,6 @@ INSERT INTO `borrow` VALUES (77, 'B0007', '234567890', 12, '2025-01-03 00:00:00'
 INSERT INTO `borrow` VALUES (78, 'B0008', '987654321', 6, '2024-12-26 00:00:00', '2024-12-17 14:50:00', '2024-12-17 14:50:00');
 INSERT INTO `borrow` VALUES (79, 'B0009', 'laoda', 9, '2024-12-30 00:00:00', '2024-12-22 11:35:00', '2024-12-22 11:35:00');
 INSERT INTO `borrow` VALUES (80, 'B4912', 'test', 10, '2025-01-02 00:00:00', '2024-12-23 17:10:33', '2024-12-23 17:10:33');
-
--- ----------------------------
--- Table structure for category
--- ----------------------------
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE `category`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '名称',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `pid` int NULL DEFAULT NULL COMMENT '父级id',
-  `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `name`(`name` ASC) USING BTREE,
-  INDEX `pid_index`(`pid` ASC) USING BTREE,
-  CONSTRAINT `pid_index` FOREIGN KEY (`pid`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2157 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of category
--- ----------------------------
-INSERT INTO `category` VALUES (2131, '计算机科学与技术', '计算机领域', NULL, '2024-12-23 02:28:25', '2024-12-23 02:29:17');
-INSERT INTO `category` VALUES (2132, '计算机基础', '计算机基础知识', 2131, '2024-12-23 02:29:24', '2024-12-23 02:29:24');
-INSERT INTO `category` VALUES (2133, '人工智能', '人工智能相关书籍', 2131, '2024-12-23 02:29:43', '2024-12-23 02:29:43');
-INSERT INTO `category` VALUES (2134, '计算机技术', '计算机相关技术', 2131, '2024-12-23 02:30:16', '2024-12-23 02:30:16');
-INSERT INTO `category` VALUES (2135, '文学', '包括各种文学作品和小说', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
-INSERT INTO `category` VALUES (2136, '历史', '历史书籍和历史事件的分析', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
-INSERT INTO `category` VALUES (2137, '心理学', '研究心理学的书籍', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
-INSERT INTO `category` VALUES (2138, '自我提升', '关于个人成长和自我发展的书籍', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
-INSERT INTO `category` VALUES (2139, '艺术', '关于艺术的理论和实践', NULL, '2024-12-23 02:38:38', '2024-12-23 02:38:38');
-INSERT INTO `category` VALUES (2145, '小说', '各种类型的小说', 2135, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
-INSERT INTO `category` VALUES (2146, '诗歌', '诗歌类文学作品', 2135, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
-INSERT INTO `category` VALUES (2147, '现代历史', '20世纪及以后的历史书籍', 2136, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
-INSERT INTO `category` VALUES (2148, '古代历史', '关于古代文明的书籍', 2136, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
-INSERT INTO `category` VALUES (2149, '社会心理学', '心理学与社会行为交叉的书籍', 2137, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
-INSERT INTO `category` VALUES (2150, '个人成长', '提升个人生活质量的书籍', 2138, '2024-12-23 02:39:22', '2024-12-23 02:39:22');
-INSERT INTO `category` VALUES (2151, '绘画艺术', '关于绘画技巧和艺术史的书籍', 2139, '2024-12-23 02:39:22', '2024-12-23 02:52:05');
-INSERT INTO `category` VALUES (2152, '工程技术', '工程类书籍', NULL, '2024-12-23 15:04:35', '2024-12-23 15:04:35');
-INSERT INTO `category` VALUES (2153, '航空航天技术', '航空航天类书籍', 2152, '2024-12-23 15:05:05', '2024-12-23 15:05:05');
-INSERT INTO `category` VALUES (2154, '传记', '人物传记', 2135, '2024-12-23 16:39:55', '2024-12-23 16:39:55');
-INSERT INTO `category` VALUES (2155, 'TEST', '测试分类', NULL, '2024-12-23 16:40:28', '2024-12-23 16:40:28');
 
 -- ----------------------------
 -- Table structure for comment
