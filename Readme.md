@@ -1,4 +1,4 @@
-# 图书管理系统 (Library Management System) 📚
+# 图书馆管理系统 (Library Management System) 📚
 
 这是一个基于 Spring Boot 和 Vue.js 开发的图书管理系统。它包括了前端的 Vue.js 项目，后端的 Spring Boot 项目，以及MYSQL数据库。
 
